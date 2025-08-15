@@ -41,10 +41,11 @@ public class ProdutoController {
         }
         
         try {
-            NumberFormat nf = NumberFormat.getInstance(new Locale("pt", "BR"));
+            NumberFormat nf = NumberFormat.getInstance(Locale.of("pt", "BR"));
             preco = nf.parse(precoString).doubleValue();
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Formato do salário inválido. Use vírgula para separar os centavos.");
+            JOptionPane.showMessageDialog(null, 
+                "Formato do salário inválido. Use vírgula para separar os centavos.");
             return false;
         }
 

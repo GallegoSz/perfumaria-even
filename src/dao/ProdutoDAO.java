@@ -30,7 +30,7 @@ public class ProdutoDAO {
     }
     
     public boolean produtoJaExiste(String nome, String marca) {
-        String sql = "SELECT * FROM PRODUTOS WHERE NOME = ? AND MARCA = ?";
+        String sql = "SELECT * FROM produtos WHERE NOME = ? AND MARCA = ?";
         
         try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)){
             ps.setString(1, nome);
@@ -43,7 +43,7 @@ public class ProdutoDAO {
     }
     
     public void removerProduto(int id) {
-        String sql = "DELETE FROM PRODUTOS WHERE ID = ?";
+        String sql = "DELETE FROM produtos WHERE ID = ?";
     
         PreparedStatement ps = null;
     
@@ -60,7 +60,7 @@ public class ProdutoDAO {
     
     public List<Produto> listarProdutos() {
         List<Produto> lista = new ArrayList<>();
-        String sql = "SELECT * FROM PRODUTOS";
+        String sql = "SELECT * FROM produtos";
 
         PreparedStatement ps = null;
         ResultSet rs = null;

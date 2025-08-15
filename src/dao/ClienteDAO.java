@@ -8,7 +8,7 @@ import model.*;
 
 public class ClienteDAO {
     public void cadastrarCliente(Cliente cliente) {
-        String sql = "INSERT INTO CLIENTES (NOME, CPF, EMAIL, ENDERECO) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (NOME, CPF, EMAIL, ENDERECO) VALUES (?, ?, ?, ?)";
         
         PreparedStatement ps = null;
         
@@ -28,7 +28,7 @@ public class ClienteDAO {
     }
     
     public boolean cpfJaExiste(String cpf, int idIgnorar) {
-        String sql = "SELECT 1 FROM CLIENTES WHERE CPF = ? AND id <> ?";
+        String sql = "SELECT 1 FROM clientes WHERE CPF = ? AND id <> ?";
         try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)){
             ps.setString(1, cpf);
             ps.setInt(2, idIgnorar);
@@ -40,7 +40,7 @@ public class ClienteDAO {
     }
     
     public boolean emailJaExiste(String email, int idIgnorar) {
-        String sql = "SELECT 1 FROM CLIENTES WHERE email = ? AND id <> ?";
+        String sql = "SELECT 1 FROM clientes WHERE email = ? AND id <> ?";
         try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)){
             ps.setString(1, email);
             ps.setInt(2, idIgnorar);
