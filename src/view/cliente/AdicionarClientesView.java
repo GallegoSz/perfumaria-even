@@ -112,8 +112,12 @@ public class AdicionarClientesView extends javax.swing.JFrame {
         String email = jTextFieldEmail.getText().trim();
         String endereco = jTextFieldEndereco.getText().trim();
         
-        if (clienteController.cadastrarCliente(nome, cpf, email, endereco) == true) {
-            dispose();
+        try {
+            if (clienteController.cadastrarCliente(nome, cpf, email, endereco) == true) {
+                dispose();
+            }
+        } catch (Exception ex) {
+            System.getLogger(AdicionarClientesView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         
     }//GEN-LAST:event_jButtonRealizarCadastroActionPerformed

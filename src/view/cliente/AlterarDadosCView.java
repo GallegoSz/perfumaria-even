@@ -110,9 +110,13 @@ public class AlterarDadosCView extends javax.swing.JFrame {
 
     private void jButtonRealizarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarAlteracaoActionPerformed
         ClienteController controller = new ClienteController();
-        if (controller.alterarDadosCliente(jTextFieldNome.getText(), jTextFieldEmail.getText(), jTextFieldEndereco.getText(),jFormattedTextFieldCpf.getText(), id)== true) {
-            dispose();
-        } 
+        try {
+            if (controller.alterarDadosCliente(jTextFieldNome.getText(), jTextFieldEmail.getText(), jTextFieldEndereco.getText(),jFormattedTextFieldCpf.getText(), id)== true) {
+                dispose(); 
+            }
+        } catch (Exception ex) {
+            System.getLogger(AlterarDadosCView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }//GEN-LAST:event_jButtonRealizarAlteracaoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
