@@ -29,32 +29,17 @@ public class ProdutoDAO {
         
     }
     
-    public boolean produtoJaExiste(String nome, String marca) {
-        String sql = "SELECT * FROM produtos WHERE NOME = ? AND MARCA = ?";
+    public boolean produtoJaExiste(String nome, String marca, int idIgnorar) {
+        String sql = "SELECT 1 FROM produtos WHERE NOME = ? AND MARCA = ? AND id <> ?";
         
         try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)){
             ps.setString(1, nome);
             ps.setString(2, marca);
+            ps.setInt(3, idIgnorar);
             return ps.executeQuery().next();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }
-    }
-    
-    public void removerProduto(int id) {
-        String sql = "DELETE FROM produtos WHERE ID = ?";
-    
-        PreparedStatement ps = null;
-    
-        try {
-            ps = Conexao.getConexao().prepareStatement(sql);
-            ps.setInt(1, id);
-        
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
     
@@ -153,7 +138,25 @@ public class ProdutoDAO {
             ps.execute();
             ps.close();
         } catch (SQLException e) {
-            throw new Exception("Erro excluir o produto no banco.");
+            throw new Exception("Erro ao excluir o produto no banco.");
+        }
+    }
+
+    public void alterarDadosProduto(Produto produto) {
+        String sql = "UPDATE produtos SET nome = ?, marca = ?, preco = ?, qtd = ? WHERE id = ?";
+          
+        try {
+            PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);
+            ps.setString(1, produto.getNome());
+            ps.setString(2, produto.getMarca());
+            ps.setDouble(3, produto.getPreco());
+            ps.setInt(4, produto.getQtd());
+            ps.setInt(5, produto.getId());
+            
+            ps.execute();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

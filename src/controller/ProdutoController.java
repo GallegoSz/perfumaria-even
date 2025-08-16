@@ -122,6 +122,79 @@ public class ProdutoController {
         }
     }
 
-    
+    public void abrirTelaEditarProduto(int id) {
+        try {
+            produto = produtoService.buscarId(id);
+            produto.setId(id);
+            new view.produto.AlterarDadosProdutoView(produto).setVisible(true);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Produto: " + e.getMessage());
+        }
+        
+    }
+
+
+    public boolean alterarDadosProduto(String nome, String marca, String precoString, String qtdString, int id) throws Exception {
+        double preco;
+        int qtd;
+        
+        if (nome == null || nome.isEmpty()) {
+            throw new Exception("O campo nome está vazio.");
+        }
+        
+        if (marca == null || marca.isEmpty()) {
+            throw new Exception("O campo marca está vazio.");
+        }
+        
+        if (precoString == null || precoString.isEmpty()) {
+            throw new Exception("O campo preço está vazio.");
+        }
+        
+        if (qtdString == null || qtdString.isEmpty()) {
+            throw new Exception("O campo quantidade está vazio.");
+        }
+        
+        try {
+            NumberFormat nf = NumberFormat.getInstance(Locale.of("pt", "BR"));
+            preco = nf.parse(precoString).doubleValue();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, 
+                "Formato do salário inválido. Use vírgula para separar os centavos.");
+            return false;
+        }
+
+        
+        try {
+            qtd = Integer.parseInt(qtdString);
+        } catch (NumberFormatException e) {
+            throw new Exception("Valor inválido para quantidade.");
+        }
+        
+        if (preco == 0) {
+            throw new Exception("O valor do preço tem que ser maio que zero.");
+        }
+        
+        if (qtd == 0) {
+            throw new Exception("O valor do quantidade tem que ser maio que zero.");
+        }
+        
+        produto.setNome(nome);
+        produto.setMarca(marca);   
+        produto.setPreco(preco);
+        produto.setQtd(qtd);
+        produto.setId(id);
+        
+        
+        try {
+            produtoService.alterarDadosProduto(produto);
+            produto.setId(id);
+            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar produto: " + e.getMessage());
+            return false;
+        }
+    }
     
 }

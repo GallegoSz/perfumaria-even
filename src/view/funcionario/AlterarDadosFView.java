@@ -73,15 +73,9 @@ public class AlterarDadosFView extends javax.swing.JFrame {
         jCheckBoxAdmin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jCheckBoxAdmin.setText("Admin");
         jCheckBoxAdmin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCheckBoxAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBoxAdminActionPerformed(evt);
-            }
-        });
 
         jButtonRealizarAlteracao.setBackground(new java.awt.Color(102, 255, 102));
         jButtonRealizarAlteracao.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButtonRealizarAlteracao.setMnemonic('R');
         jButtonRealizarAlteracao.setText("Realizar Alteração");
         jButtonRealizarAlteracao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,10 +143,6 @@ public class AlterarDadosFView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao alterar os dados do Funcionário: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButtonRealizarAlteracaoActionPerformed
-
-    private void jCheckBoxAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAdminActionPerformed
-        
-    }//GEN-LAST:event_jCheckBoxAdminActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

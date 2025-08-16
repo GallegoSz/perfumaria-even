@@ -717,7 +717,7 @@ public class PrincipalView extends javax.swing.JFrame {
                 try {
                     funcionarioController.abrirTelaEditarFuncionario(id);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Cliente: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Funcionário: " + ex.getMessage());
                 }
             }
         }
@@ -844,7 +844,21 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldNomeProdutoKeyTyped
 
     private void jTableEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstoqueMouseClicked
-        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            linha = jTableEstoque.rowAtPoint(evt.getPoint());
+            
+            if (linha != -1) {
+                Object valordoId = jTableEstoque.getValueAt(linha, 0);
+                
+                int id = Integer.parseInt(valordoId.toString());
+                try {
+                    produtoController.abrirTelaEditarProduto(id);
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Produto: " + ex.getMessage());
+                }
+            }
+        }
     }//GEN-LAST:event_jTableEstoqueMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
