@@ -12,11 +12,15 @@ public class LoginController {
         this.loginService = new LoginService();
     }
 
-    public boolean realizarLogin(String usuario, String senha) throws Exception {
-        if (usuario == null || usuario.isEmpty() || senha == null || senha.isEmpty()) {
-            throw new Exception("Preencha todos os campos");
+    public boolean realizarLogin(String usuario, String senha) throws Exception {        
+        if (usuario == null || usuario.isBlank()) {
+            throw new Exception("Preencha o campo usuário");
         }
         
+        if (senha == null || senha.isBlank()) {
+            throw new Exception("Preencha o campo senha");
+        }
+         
         Funcionario funcionario = new Funcionario();
         
         funcionario.setEmail(usuario);

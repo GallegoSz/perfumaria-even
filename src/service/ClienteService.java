@@ -16,20 +16,6 @@ public class ClienteService {
     }
 
     public void cadastrar(Cliente cliente) throws Exception {
-        if (cliente.getNome().isBlank()) {
-            throw new Exception("O nome é obrigatório");
-        }
-        if (cliente.getCpf().isBlank()) {
-            throw new Exception("O CPF é obrigatório");
-        }
-        if (cliente.getEmail().isBlank()) {
-            throw new Exception("O e-mail é obrigatório");
-        }
-        
-        if (cliente.getEndereco().isBlank()) {
-            throw new Exception("O endereço é obrigatório");
-        }
-        
         if (!cpfDisponivel(cliente.getCpf(), cliente.getId())) {
             throw new Exception("Este CPF já está em uso.");
         }
@@ -52,21 +38,7 @@ public class ClienteService {
         
     }
 
-    public void alterarDadosCliente(Cliente cliente) throws Exception{
-        if (cliente.getNome().isBlank()) {
-            throw new Exception("O nome é obrigatório");
-        }
-        if (cliente.getCpf().isBlank()) {
-            throw new Exception("O CPF é obrigatório");
-        }
-        if (cliente.getEmail().isBlank()) {
-            throw new Exception("O e-mail é obrigatório");
-        }
-        
-        if (cliente.getEndereco().isBlank()) {
-            throw new Exception("O endereço é obrigatório");
-        }
-        
+    public void alterarDadosCliente(Cliente cliente) throws Exception{ 
         if (!cpfDisponivel(cliente.getCpf(), cliente.getId())) {
             
             throw new Exception("Este CPF já está em uso.");

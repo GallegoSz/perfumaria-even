@@ -12,20 +12,7 @@ public class FuncionarioService {
     }
     
     public void cadastrar(Funcionario funcionario) throws Exception{
-        if (funcionario.getNome().isEmpty()) {
-            throw new Exception("O nome é obrigatório");
-        }
-        if (funcionario.getEmail().isEmpty()) {
-            throw new Exception("O email é obrigatório");
-        }
-        if (funcionario.getSalario() == 0) {
-            throw new Exception("O valor do salário tem que ser maio que zero");
-        }
-        if (funcionario.getSenha().isEmpty()) {
-            throw new Exception("A senha é obrigatória");
-        }
-
-        if (!emailDisponivel(funcionario.getEmail(), funcionario.getId())) {
+       if (!emailDisponivel(funcionario.getEmail(), funcionario.getId())) {
             throw new Exception("Este e-mail já está em uso.");
         }
         
@@ -33,19 +20,6 @@ public class FuncionarioService {
     }
 
     public void alterarDadosFuncionario(Funcionario funcionario) throws Exception {
-        if (funcionario.getNome().isEmpty()) {
-            throw new Exception("O nome é obrigatório");
-        }
-        if (funcionario.getEmail().isEmpty()) {
-            throw new Exception("O email é obrigatório");
-        }
-        if (funcionario.getSalario() == 0) {
-            throw new Exception("O valor do salário tem que ser maio que zero");
-        }
-        if (funcionario.getSenha().isEmpty()) {
-            throw new Exception("A senha é obrigatória");
-        }
-        
         if (!emailDisponivel(funcionario.getEmail(), funcionario.getId())) {
             throw new Exception("Este e-mail já está em uso.");
         }

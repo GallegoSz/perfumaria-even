@@ -17,13 +17,26 @@ public class ClienteController {
         
     }
 
-    public boolean alterarDadosCliente(String nome, String email, String endereco, String cpf, int id) {
+    public boolean alterarDadosCliente(String nome, String email, String endereco, String cpf, int id) throws Exception {
+        if (nome == null || nome.isBlank()  ) {
+            throw new Exception("O nome é obrigatório");
+        }
+        if (cpf == null || cpf.isBlank()) {
+            throw new Exception("O CPF é obrigatório");
+        }
+        if (email == null || email.isBlank()) {
+            throw new Exception("O e-mail é obrigatório");
+        }  
+        if (endereco == null || endereco.isBlank() ) {
+            throw new Exception("O endereço é obrigatório");
+        }
+        
         cliente.setNome(nome);
         cliente.setEmail(email);
         cliente.setEndereco(endereco);
         cliente.setCpf(cpf);
         cliente.setId(id);
-        
+   
         try {
             clienteService.alterarDadosCliente(cliente);
             return true;
@@ -86,12 +99,25 @@ public class ClienteController {
         new view.cliente.AdicionarClientesView().setVisible(true);
     }
 
-    public boolean cadastrarCliente(String nome, String cpf, String email, String endereco) {
+    public boolean cadastrarCliente(String nome, String cpf, String email, String endereco) throws Exception {
+        if (nome == null || nome.isBlank()  ) {
+            throw new Exception("O nome é obrigatório");
+        }
+        if (cpf == null || cpf.isBlank()) {
+            throw new Exception("O CPF é obrigatório");
+        }
+        if (email == null || email.isBlank()) {
+            throw new Exception("O e-mail é obrigatório");
+        }  
+        if (endereco == null || endereco.isBlank() ) {
+            throw new Exception("O endereço é obrigatório");
+        }
+        
         cliente.setNome(nome);
         cliente.setCpf(cpf);
         cliente.setEmail(email);
         cliente.setEndereco(endereco);
-        
+    
         try {
             clienteService.cadastrar(cliente);
             return true;

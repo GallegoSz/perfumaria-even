@@ -26,9 +26,13 @@ public class FuncionarioController {
     }
 
     public boolean cadastrarFuncionario(String nome, String email, String salarioString, String senha, boolean admin, String confirmarSenha) throws Exception {
-        if (salarioString == null || salarioString.isEmpty()) {
+        if (salarioString == null || salarioString.isBlank()) {
             JOptionPane.showMessageDialog(null, "O campo salário está vazio");
             return false;
+        }
+        
+        if (senha == null || senha.isBlank()) {
+            throw new Exception("A senha é obrigatória");
         }
         
         if (!senha.equals(confirmarSenha) ) {
@@ -36,7 +40,14 @@ public class FuncionarioController {
             return false;
         }
         
+        if (nome == null || nome.isBlank()) {
+            throw new Exception("O nome é obrigatório");
+        }
+        if (email == null || email.isBlank()) {
+            throw new Exception("O email é obrigatório");
+        }
         
+
         double salario;
         
         try {
@@ -46,11 +57,19 @@ public class FuncionarioController {
             return false;
         }
         
+       
+        if (salario == 0) {
+            throw new Exception("O valor do salário tem que ser maio que zero");
+        }
+        
+        
         funcionario.setNome(nome);
         funcionario.setEmail(email);
         funcionario.setSalario(salario);
         funcionario.setSenha(senha);
         funcionario.setAdmin(admin);
+        
+        
         
         try {
             funcionarioService.cadastrar(funcionario);
@@ -72,10 +91,24 @@ public class FuncionarioController {
             return false;
         }
         
+        if (senha.isEmpty() || senha.isBlank()) {
+            throw new Exception("A senha é obrigatória");
+        }
+        
         if (!senha.equals(confirmarSenha) ) {
             JOptionPane.showMessageDialog(null, "Repita a senha corretamente");
             return false;
         }
+        
+        if (nome == null || nome.isBlank()) {
+            throw new Exception("O nome é obrigatório");
+        }
+        
+        if (email == null || email.isBlank()) {
+            throw new Exception("O email é obrigatório");
+        }
+        
+        
         
         double salario;
         
@@ -85,6 +118,11 @@ public class FuncionarioController {
             JOptionPane.showMessageDialog(null, "Formato do salário inválido");
             return false;
         }
+        
+        if (salario == 0) {
+            throw new Exception("O valor do salário tem que ser maio que zero");
+        }
+        
         
         funcionario.setNome(nome);
         funcionario.setEmail(email);
