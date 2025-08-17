@@ -23,6 +23,7 @@ import javax.swing.table.TableModel;
 import model.*;
 import view.produto.AdicionarProdutoView;
 import controller.ProdutoController;
+import java.sql.SQLException;
 
 /**
  *
@@ -37,9 +38,13 @@ public class PrincipalView extends javax.swing.JFrame {
     
     public PrincipalView() throws Exception {
         initComponents();
-        clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
-        funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
-        produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        try {
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar dados iniciais: " + ex.getMessage());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -664,24 +669,30 @@ public class PrincipalView extends javax.swing.JFrame {
     private void jButtonAdicionarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarFuncionariosActionPerformed
         try {
             funcionarioController.abrirTelaCadastrarFuncionario();
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de funcionário: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de funcionário: " + ex.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Adicionar Funcionário: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de funcionário: " + e.getMessage());
         }
-        
     }//GEN-LAST:event_jButtonAdicionarFuncionariosActionPerformed
 
     private void jButtonAdicionarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarClientesActionPerformed
         try {
             clienteController.abrirTelaCadastrarCliente();
-            
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de cliente: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de cliente: " + ex.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Adicionar Cliente: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de cliente: " + e.getMessage());
         }
     }//GEN-LAST:event_jButtonAdicionarClientesActionPerformed
 
     private void jButtonRemoverFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverFuncionariosActionPerformed
         int linhaSelecionada = jTableFuncionarios.getSelectedRow();
-    
+
         if (linhaSelecionada == -1) {
             JOptionPane.showMessageDialog(this, "É necessário escolher um funcionário para excluir.");
             return;
@@ -691,19 +702,39 @@ public class PrincipalView extends javax.swing.JFrame {
         int id = Integer.parseInt(valordoId.toString());
 
         try {
-            funcionarioController.abrirTelaExcluirCliente(id);
+            funcionarioController.abrirTelaExcluirFuncionario(id);
             funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela Excluir Funcionários: " + e.getMessage());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir funcionário: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir funcionário: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir funcionário: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButtonRemoverFuncionariosActionPerformed
 
     private void jButtonRefreshFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshFActionPerformed
-        funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButtonRefreshFActionPerformed
 
     private void jButtonRefreshCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshCActionPerformed
-        clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        try {
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButtonRefreshCActionPerformed
 
     private void jTableFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosMouseClicked
@@ -717,34 +748,82 @@ public class PrincipalView extends javax.swing.JFrame {
                 try {
                     funcionarioController.abrirTelaEditarFuncionario(id);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Funcionário: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
         }
     }//GEN-LAST:event_jTableFuncionariosMouseClicked
 
     private void jTextFieldNomeFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyPressed
-        funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyPressed
 
     private void jTextFieldNomeFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyReleased
-        funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyReleased
 
     private void jTextFieldNomeFuncionarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyTyped
-        funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyTyped
 
     private void jTextFieldNomeClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyPressed
-        clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        try {
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jTextFieldNomeClienteKeyPressed
 
     private void jTextFieldNomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyReleased
-        clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        try {
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jTextFieldNomeClienteKeyReleased
 
     private void jTextFieldNomeClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyTyped
-        clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        try {
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jTextFieldNomeClienteKeyTyped
 
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
@@ -758,7 +837,7 @@ public class PrincipalView extends javax.swing.JFrame {
                 try {
                     clienteController.abrirTelaEditarCliente(id);
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Cliente: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
         }
@@ -766,7 +845,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void jButtonRemoverClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverClientesActionPerformed
         int linhaSelecionada = jTableClientes.getSelectedRow();
-    
+
         if (linhaSelecionada == -1) {
             JOptionPane.showMessageDialog(this, "É necessário escolher um cliente para excluir.");
             return;
@@ -778,23 +857,30 @@ public class PrincipalView extends javax.swing.JFrame {
         try {
             clienteController.abrirTelaExcluirCliente(id);
             clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir cliente: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir cliente: " + ex.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela Excluir Cliente: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir cliente: " + e.getMessage());
         }
     }//GEN-LAST:event_jButtonRemoverClientesActionPerformed
 
     private void jButtonAdicionarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarProdutosActionPerformed
         try {
             produtoController.abrirTelaCadastrarProduto();
-            
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de produto: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de produto: " + ex.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Adicionar Cliente: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de produto: " + e.getMessage());
         }
     }//GEN-LAST:event_jButtonAdicionarProdutosActionPerformed
 
     private void jButtonRemoverProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverProdutosActionPerformed
         int linhaSelecionada = jTableEstoque.getSelectedRow();
-    
+
         if (linhaSelecionada == -1) {
             JOptionPane.showMessageDialog(this, "É necessário escolher um produto para excluir.");
             return;
@@ -806,40 +892,60 @@ public class PrincipalView extends javax.swing.JFrame {
         try {
             produtoController.abrirTelaExcluirProduto(id);
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir produto: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir produto: " + ex.getMessage());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao abrir a tela Excluir Produto: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir produto: " + e.getMessage());
         }
     }//GEN-LAST:event_jButtonRemoverProdutosActionPerformed
 
     private void jButtonRefreshPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshPActionPerformed
         try {
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao atualizar a tabela Funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButtonRefreshPActionPerformed
 
     private void jTextFieldNomeProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyPressed
         try {
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar produto" + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
     }//GEN-LAST:event_jTextFieldNomeProdutoKeyPressed
 
     private void jTextFieldNomeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyReleased
         try {
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar produto" + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
     }//GEN-LAST:event_jTextFieldNomeProdutoKeyReleased
 
     private void jTextFieldNomeProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyTyped
         try {
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar produto" + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
     }//GEN-LAST:event_jTextFieldNomeProdutoKeyTyped
 
@@ -855,7 +961,7 @@ public class PrincipalView extends javax.swing.JFrame {
                     produtoController.abrirTelaEditarProduto(id);
                     
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Produto: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
         }

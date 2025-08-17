@@ -6,6 +6,7 @@ import view.cliente.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.sql.SQLException;
 
 public class ClienteController {
     private ClienteService clienteService;
@@ -17,46 +18,41 @@ public class ClienteController {
         
     }
 
-    public boolean alterarDadosCliente(String nome, String email, String endereco, String cpf, int id) throws Exception {
-        if (nome == null || nome.isBlank()  ) {
-            throw new Exception("O nome é obrigatório");
+    public boolean alterarDadosCliente(String nome, String email, String endereco, String cpf, int id) throws SQLException, IllegalArgumentException {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("O nome é obrigatório");
         }
         if (cpf == null || cpf.isBlank()) {
-            throw new Exception("O CPF é obrigatório");
+            throw new IllegalArgumentException("O CPF é obrigatório");
         }
         if (email == null || email.isBlank()) {
-            throw new Exception("O e-mail é obrigatório");
+            throw new IllegalArgumentException("O e-mail é obrigatório");
         }  
-        if (endereco == null || endereco.isBlank() ) {
-            throw new Exception("O endereço é obrigatório");
+        if (endereco == null || endereco.isBlank()) {
+            throw new IllegalArgumentException("O endereço é obrigatório");
         }
-        
+
         cliente.setNome(nome);
         cliente.setEmail(email);
         cliente.setEndereco(endereco);
         cliente.setCpf(cpf);
         cliente.setId(id);
-   
-        try {
-            clienteService.alterarDadosCliente(cliente);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar os dados " + e.getMessage());
-            return false;
-        }
+
+        clienteService.alterarDadosCliente(cliente);
+        return true;
     }
 
-    public void abrirTelaEditarCliente(int id) {
+    public void abrirTelaEditarCliente(int id) throws Exception {
         try {
             cliente = clienteService.buscarId(id);
             cliente.setId(id);
             new view.cliente.AlterarDadosCView(cliente).setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Cliente: " + e.getMessage());
+            throw new Exception("Erro ao abrir a tela Editar Cliente");
         }
     }
 
-    public void abrirTelaExcluirCliente(int id) {
+    public void abrirTelaExcluirCliente(int id) throws Exception {
         try {
             cliente = clienteService.buscarId(id);
             cliente.setId(id);
@@ -68,49 +64,49 @@ public class ClienteController {
             }
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao  Excluir Cliente: " + e.getMessage());
+            throw new Exception("Erro ao abrir a tela excluir cliente");
         }
     }
 
-    public void buscarClientes(String nome, TableModel model) {
-        try {           
-            List<Cliente> lista = clienteService.buscarClientes(nome);
+    public void buscarClientes(String nome, TableModel model) throws SQLException {     
+        List<Cliente> lista = clienteService.buscarClientes(nome);
             
-            DefaultTableModel modelo = (DefaultTableModel) model;
-            modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) model;
+        modelo.setRowCount(0);
             
             
-            for (Cliente c : lista) {
-                modelo.addRow(new Object[]{ 
-                    c.getId(), 
-                    c.getNome(),
-                    c.getCpf(),
-                    c.getEmail(), 
-                    c.getEndereco()
-                    });
+        for (Cliente c : lista) {
+            modelo.addRow(new Object[]{ 
+                c.getId(), 
+                c.getNome(),
+                c.getCpf(),
+                c.getEmail(), 
+                c.getEndereco()
+                });
             }
-            
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao caregar clientes");
-        }
     }
 
-    public void abrirTelaCadastrarCliente() {
-        new view.cliente.AdicionarClientesView().setVisible(true);
+    public void abrirTelaCadastrarCliente() throws Exception {
+        try {
+            new view.cliente.AdicionarClientesView().setVisible(true);
+        } catch (Exception e) {
+            throw new Exception("Erro ao abrir a tela cadastrar cliente");
+        }
+        
     }
 
     public boolean cadastrarCliente(String nome, String cpf, String email, String endereco) throws Exception {
         if (nome == null || nome.isBlank()  ) {
-            throw new Exception("O nome é obrigatório");
+            throw new IllegalArgumentException("O nome é obrigatório");
         }
         if (cpf == null || cpf.isBlank()) {
-            throw new Exception("O CPF é obrigatório");
+            throw new IllegalArgumentException("O CPF é obrigatório");
         }
         if (email == null || email.isBlank()) {
-            throw new Exception("O e-mail é obrigatório");
+            throw new IllegalArgumentException("O e-mail é obrigatório");
         }  
         if (endereco == null || endereco.isBlank() ) {
-            throw new Exception("O endereço é obrigatório");
+            throw new IllegalArgumentException("O endereço é obrigatório");
         }
         
         cliente.setNome(nome);
@@ -118,12 +114,8 @@ public class ClienteController {
         cliente.setEmail(email);
         cliente.setEndereco(endereco);
     
-        try {
-            clienteService.cadastrar(cliente);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar o Cliente: " + e.getMessage());
-            return false;
+        clienteService.cadastrar(cliente);
+        return true;
         }
     }
-}
+

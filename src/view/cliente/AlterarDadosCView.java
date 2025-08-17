@@ -3,6 +3,8 @@ package view.cliente;
 import service.ClienteService;
 import model.Cliente;
 import controller.ClienteController;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -111,11 +113,20 @@ public class AlterarDadosCView extends javax.swing.JFrame {
     private void jButtonRealizarAlteracaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarAlteracaoActionPerformed
         ClienteController controller = new ClienteController();
         try {
-            if (controller.alterarDadosCliente(jTextFieldNome.getText(), jTextFieldEmail.getText(), jTextFieldEndereco.getText(),jFormattedTextFieldCpf.getText(), id)== true) {
+            if (controller.alterarDadosCliente(
+                    jTextFieldNome.getText(), 
+                    jTextFieldEmail.getText(), 
+                    jTextFieldEndereco.getText(),
+                    jFormattedTextFieldCpf.getText(), 
+                    id)) {
                 dispose(); 
             }
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados: " + ex.getMessage());
         } catch (Exception ex) {
-            System.getLogger(AlterarDadosCView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage());
         }
     }//GEN-LAST:event_jButtonRealizarAlteracaoActionPerformed
 
