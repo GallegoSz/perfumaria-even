@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
@@ -69,41 +70,37 @@ public class ProdutoController {
         produto.setPreco(preco);
         produto.setQtd(qtd);
         
+        produtoService.cadastrarProduto(produto);
+        return true;
+        
+    }
+
+    public void abrirTelaCadastrarProduto() throws Exception {
         try {
-            produtoService.cadastrarProduto(produto);
-            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
-            return true;
+            new view.produto.AdicionarProdutoView().setVisible(true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto: " + e.getMessage());
-            return false;
+            throw new Exception("Erro ao abrir a tela cadastrar produto");
         }
+        
     }
 
-    public void abrirTelaCadastrarProduto() {
-        new view.produto.AdicionarProdutoView().setVisible(true);
-    }
-
-    public void buscarProdutos(String nome, TableModel model) throws Exception {
-        try {           
-            List<Produto> lista = produtoService.buscarProdutos(nome);
+    public void buscarProdutos(String nome, TableModel model) throws Exception {        
+        List<Produto> lista = produtoService.buscarProdutos(nome);
             
-            DefaultTableModel modelo = (DefaultTableModel) model;
-            modelo.setRowCount(0);
+        DefaultTableModel modelo = (DefaultTableModel) model;
+        modelo.setRowCount(0);
             
             
-            for (Produto p : lista) {
-                modelo.addRow(new Object[]{ 
-                    p.getId(),
-                    p.getNome(),
-                    p.getMarca(),
-                    p.getPreco(),
-                    p.getQtd()
-                    });
+        for (Produto p : lista) {
+            modelo.addRow(new Object[]{ 
+                p.getId(),
+                p.getNome(),
+                p.getMarca(),
+                p.getPreco(),
+                p.getQtd()
+                });
             }
-            
-        } catch(Exception e) {
-            throw new Exception("Erro ao carregar o Estoque.");
-        }
+
     }
 
     public void abrirTelaExcluirProduto(int id) {
@@ -135,48 +132,46 @@ public class ProdutoController {
     }
 
 
-    public boolean alterarDadosProduto(String nome, String marca, String precoString, String qtdString, int id) throws Exception {
+    public boolean alterarDadosProduto(String nome, String marca, String precoString, String qtdString, int id) throws IllegalArgumentException, SQLException {
         double preco;
         int qtd;
         
-        if (nome == null || nome.isEmpty()) {
-            throw new Exception("O campo nome está vazio.");
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("O campo nome está vazio.");
         }
         
-        if (marca == null || marca.isEmpty()) {
-            throw new Exception("O campo marca está vazio.");
+        if (marca == null || marca.isBlank()) {
+            throw new IllegalArgumentException("O campo marca está vazio.");
         }
         
-        if (precoString == null || precoString.isEmpty()) {
-            throw new Exception("O campo preço está vazio.");
+        if (precoString == null || precoString.isBlank()) {
+            throw new IllegalArgumentException("O campo preço está vazio.");
         }
         
-        if (qtdString == null || qtdString.isEmpty()) {
-            throw new Exception("O campo quantidade está vazio.");
+        if (qtdString == null || qtdString.isBlank()) {
+            throw new IllegalArgumentException("O campo quantidade está vazio.");
         }
         
         try {
             NumberFormat nf = NumberFormat.getInstance(Locale.of("pt", "BR"));
             preco = nf.parse(precoString).doubleValue();
         } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, 
-                "Formato do salário inválido. Use vírgula para separar os centavos.");
-            return false;
+           throw new IllegalArgumentException("Formato do salário inválido. Use vírgula para separar os centavos.");
         }
 
         
         try {
             qtd = Integer.parseInt(qtdString);
         } catch (NumberFormatException e) {
-            throw new Exception("Valor inválido para quantidade.");
+            throw new IllegalArgumentException("Valor inválido para quantidade.");
         }
         
         if (preco == 0) {
-            throw new Exception("O valor do preço tem que ser maio que zero.");
+            throw new IllegalArgumentException("O valor do preço tem que ser maio que zero.");
         }
         
         if (qtd == 0) {
-            throw new Exception("O valor do quantidade tem que ser maio que zero.");
+            throw new IllegalArgumentException("O valor do quantidade tem que ser maio que zero.");
         }
         
         produto.setNome(nome);
@@ -186,15 +181,10 @@ public class ProdutoController {
         produto.setId(id);
         
         
-        try {
-            produtoService.alterarDadosProduto(produto);
-            produto.setId(id);
-            JOptionPane.showMessageDialog(null, "Produto alterado com sucesso!");
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao alterar produto: " + e.getMessage());
-            return false;
-        }
+        produtoService.alterarDadosProduto(produto);
+        produto.setId(id);
+        return true;
+       
     }
     
 }

@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import service.ClienteService;
 import model.Cliente;
 import controller.ClienteController;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -116,8 +117,12 @@ public class AdicionarClientesView extends javax.swing.JFrame {
             if (clienteController.cadastrarCliente(nome, cpf, email, endereco) == true) {
                 dispose();
             }
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados: " + ex.getMessage());
         } catch (Exception ex) {
-            System.getLogger(AdicionarClientesView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(this, "Erro inesperado: " + ex.getMessage());
         }
         
     }//GEN-LAST:event_jButtonRealizarCadastroActionPerformed

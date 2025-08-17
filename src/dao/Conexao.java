@@ -19,7 +19,6 @@ public class Conexao {
                 return conn;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             return null;
         }
     }
