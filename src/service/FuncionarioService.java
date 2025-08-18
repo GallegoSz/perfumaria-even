@@ -1,8 +1,8 @@
 package service;
+
 import dao.FuncionarioDAO;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.Funcionario;
 
 public class FuncionarioService {
@@ -19,15 +19,15 @@ public class FuncionarioService {
         
         try {
             dao.cadastrarFuncionario(funcionario);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new SQLException("Erro ao cadastrar os dados do funcionário: " + e.getMessage());
         }
         
     }
 
-    public void alterarDadosFuncionario(Funcionario funcionario) throws Exception {
+    public void alterarDadosFuncionario(Funcionario funcionario) throws SQLException, IllegalArgumentException {
         if (!emailDisponivel(funcionario.getEmail(), funcionario.getId())) {
-            throw new Exception("Este e-mail já está em uso.");
+            throw new IllegalArgumentException("Este e-mail já está em uso.");
         }
         
         try {

@@ -6,9 +6,6 @@ package view.login;
 
 import controller.LoginController;
 import javax.swing.JOptionPane;
-import model.Funcionario;
-import dao.LoginDAO;
-import view.principal.PrincipalView;
 
 
 public class LoginView extends javax.swing.JFrame {

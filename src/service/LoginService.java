@@ -1,7 +1,6 @@
 package service;
 
 import dao.LoginDAO;
-import javax.swing.JOptionPane;
 import model.Funcionario;
 
 public class LoginService {

@@ -1,4 +1,5 @@
 package view.funcionario;
+
 import javax.swing.JOptionPane;
 import model.Funcionario;
 

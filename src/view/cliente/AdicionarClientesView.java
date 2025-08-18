@@ -1,13 +1,8 @@
 package view.cliente;
 
-import dao.*;
 import javax.swing.JOptionPane;
-import service.ClienteService;
-import model.Cliente;
 import controller.ClienteController;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  *

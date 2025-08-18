@@ -1,10 +1,11 @@
 package dao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.*;
+import model.Funcionario;
 
 public class FuncionarioDAO {
     public void cadastrarFuncionario(Funcionario funcionario) throws SQLException {

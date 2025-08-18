@@ -1,34 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.principal;
 
-import view.funcionario.AdicionarFuncionariosView;
-import view.cliente.AdicionarClientesView;
+
 import controller.ClienteController;
 import controller.FuncionarioController;
-import dao.ClienteDAO;
-import dao.FuncionarioDAO;
-import dao.ProdutoDAO;
-import java.awt.CardLayout;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import model.*;
-import view.produto.AdicionarProdutoView;
 import controller.ProdutoController;
+import java.awt.CardLayout;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author joped
- */
 public class PrincipalView extends javax.swing.JFrame {
     
     private ClienteController clienteController = new ClienteController();

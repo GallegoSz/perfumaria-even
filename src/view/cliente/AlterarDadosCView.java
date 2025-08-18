@@ -1,6 +1,5 @@
 package view.cliente;
 
-import service.ClienteService;
 import model.Cliente;
 import controller.ClienteController;
 import java.sql.SQLException;
