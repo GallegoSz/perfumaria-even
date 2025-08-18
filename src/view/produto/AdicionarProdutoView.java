@@ -1,13 +1,8 @@
 package view.produto;
 
-import dao.*;
 import javax.swing.JOptionPane;
 import controller.ProdutoController;
-import service.ProdutoService;
-import model.Produto;
-import dao.ProdutoDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *

@@ -3,7 +3,6 @@ import java.util.List;
 import model.Cliente;
 import service.ClienteService;
 import view.cliente.*;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.sql.SQLException;

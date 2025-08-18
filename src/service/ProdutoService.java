@@ -1,11 +1,10 @@
 package service;
 
-import dao.ProdutoDAO;
 import model.Produto;
 import dao.ProdutoDAO;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
+
 
 public class ProdutoService {
     private ProdutoDAO dao = new ProdutoDAO();
@@ -68,8 +67,6 @@ public class ProdutoService {
 
     public void alterarDadosProduto(Produto produto) throws IllegalArgumentException, SQLException {
         if (!produtoDisponivel(produto.getNome(), produto.getMarca(), produto.getId())) {
-            JOptionPane.showMessageDialog(null, produto.getId());
- 
             throw new IllegalArgumentException("Já existe um produto como esse no estoque.");
         }
         

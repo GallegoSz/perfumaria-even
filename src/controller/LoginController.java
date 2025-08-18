@@ -1,6 +1,5 @@
 package controller;
 
-import javax.swing.JOptionPane;
 import model.Funcionario;
 import service.LoginService;
 

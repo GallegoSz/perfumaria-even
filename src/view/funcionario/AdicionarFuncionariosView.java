@@ -1,25 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.funcionario;
 
 import controller.FuncionarioController;
-import dao.*;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import service.FuncionarioService;
-import model.Funcionario;
-import view.principal.PrincipalView;
-import view.principal.PrincipalView;
 
-/**
- *
- * @author joped
- */
 public class AdicionarFuncionariosView extends javax.swing.JFrame {
     FuncionarioController funcionarioController;
     
