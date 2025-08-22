@@ -4,6 +4,7 @@ package view.principal;
 import controller.ClienteController;
 import controller.FuncionarioController;
 import controller.ProdutoController;
+import controller.VendaController;
 import java.awt.CardLayout;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -13,6 +14,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private ClienteController clienteController = new ClienteController();
     private FuncionarioController funcionarioController = new FuncionarioController();
     private ProdutoController produtoController = new ProdutoController();
+    private VendaController vendaController = new VendaController();
     int linha;
     
     public PrincipalView() throws Exception {
@@ -21,6 +23,7 @@ public class PrincipalView extends javax.swing.JFrame {
             clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
             funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar dados iniciais: " + ex.getMessage());
         }
@@ -39,8 +42,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jPanelTela = new javax.swing.JPanel();
         jPanelInicio = new javax.swing.JPanel();
         jLabelInicio = new javax.swing.JLabel();
-        jPanelVender = new javax.swing.JPanel();
-        jLabelVender = new javax.swing.JLabel();
         jPanelFuncionarios = new javax.swing.JPanel();
         jLabelFuncionarios = new javax.swing.JLabel();
         jPanelAddOrRemoveF = new javax.swing.JPanel();
@@ -68,6 +69,14 @@ public class PrincipalView extends javax.swing.JFrame {
         jTextFieldNomeProduto = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableEstoque = new javax.swing.JTable();
+        jPanelVendas = new javax.swing.JPanel();
+        jLabelVender = new javax.swing.JLabel();
+        jPanelAddOrRemoveF1 = new javax.swing.JPanel();
+        jButtonAdicionarVenda = new javax.swing.JButton();
+        jButtonRefreshV = new javax.swing.JButton();
+        jTextFieldNomeDaVenda = new javax.swing.JTextField();
+        jScrollPaneVendas = new javax.swing.JScrollPane();
+        jTableVendas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Perfumaria Even");
@@ -83,7 +92,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonInicio.setMnemonic('I');
         jButtonInicio.setText("Início");
         jButtonInicio.setBorderPainted(false);
-        jButtonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonInicio.setIconTextGap(5);
         jButtonInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +108,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonVender.setMnemonic('V');
         jButtonVender.setText("Vender");
         jButtonVender.setBorderPainted(false);
-        jButtonVender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonVender.setIconTextGap(5);
         jButtonVender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +124,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonEstoque.setMnemonic('E');
         jButtonEstoque.setText("Estoque");
         jButtonEstoque.setBorderPainted(false);
-        jButtonEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonEstoque.setIconTextGap(5);
         jButtonEstoque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -131,7 +140,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonFuncionarios.setMnemonic('F');
         jButtonFuncionarios.setText("Funcionarios");
         jButtonFuncionarios.setBorderPainted(false);
-        jButtonFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonFuncionarios.setIconTextGap(5);
         jButtonFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,7 +156,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonClientes.setMnemonic('C');
         jButtonClientes.setText("Clientes");
         jButtonClientes.setBorderPainted(false);
-        jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonClientes.setIconTextGap(5);
         jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,28 +189,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jPanelTela.add(jPanelInicio, "inicio");
 
-        jLabelVender.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 48)); // NOI18N
-        jLabelVender.setText("Vender");
-
-        javax.swing.GroupLayout jPanelVenderLayout = new javax.swing.GroupLayout(jPanelVender);
-        jPanelVender.setLayout(jPanelVenderLayout);
-        jPanelVenderLayout.setHorizontalGroup(
-            jPanelVenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelVenderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelVender, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanelVenderLayout.setVerticalGroup(
-            jPanelVenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelVenderLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabelVender)
-                .addContainerGap(535, Short.MAX_VALUE))
-        );
-
-        jPanelTela.add(jPanelVender, "vender");
-
         jLabelFuncionarios.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 48)); // NOI18N
         jLabelFuncionarios.setText("Funcionários");
 
@@ -210,7 +197,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonAdicionarFuncionarios.setMnemonic('A');
         jButtonAdicionarFuncionarios.setText("Adicionar");
         jButtonAdicionarFuncionarios.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
-        jButtonAdicionarFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAdicionarFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonAdicionarFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdicionarFuncionariosActionPerformed(evt);
@@ -222,7 +209,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonRemoverFuncionarios.setMnemonic('R');
         jButtonRemoverFuncionarios.setText("Remover");
         jButtonRemoverFuncionarios.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
-        jButtonRemoverFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonRemoverFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonRemoverFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRemoverFuncionariosActionPerformed(evt);
@@ -339,7 +326,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonAdicionarClientes.setMnemonic('A');
         jButtonAdicionarClientes.setText("Adicionar");
         jButtonAdicionarClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
-        jButtonAdicionarClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAdicionarClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonAdicionarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdicionarClientesActionPerformed(evt);
@@ -351,7 +338,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonRemoverClientes.setMnemonic('R');
         jButtonRemoverClientes.setText("Remover");
         jButtonRemoverClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
-        jButtonRemoverClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonRemoverClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonRemoverClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRemoverClientesActionPerformed(evt);
@@ -474,7 +461,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonAdicionarProdutos.setMnemonic('A');
         jButtonAdicionarProdutos.setText("Adicionar");
         jButtonAdicionarProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
-        jButtonAdicionarProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonAdicionarProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonAdicionarProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAdicionarProdutosActionPerformed(evt);
@@ -486,7 +473,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonRemoverProdutos.setMnemonic('R');
         jButtonRemoverProdutos.setText("Remover");
         jButtonRemoverProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
-        jButtonRemoverProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonRemoverProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonRemoverProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRemoverProdutosActionPerformed(evt);
@@ -601,6 +588,127 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jPanelTela.add(jPanelEstoque, "estoque");
 
+        jLabelVender.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 48)); // NOI18N
+        jLabelVender.setText("Vender");
+
+        jButtonAdicionarVenda.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonAdicionarVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonAdicionarVenda.setMnemonic('A');
+        jButtonAdicionarVenda.setText("Adicionar");
+        jButtonAdicionarVenda.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
+        jButtonAdicionarVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonAdicionarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdicionarVendaActionPerformed(evt);
+            }
+        });
+
+        jButtonRefreshV.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonRefreshV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
+        jButtonRefreshV.setMnemonic('U');
+        jButtonRefreshV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefreshVActionPerformed(evt);
+            }
+        });
+
+        jTextFieldNomeDaVenda.setBackground(new java.awt.Color(245, 245, 245));
+        jTextFieldNomeDaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNomeDaVendaActionPerformed(evt);
+            }
+        });
+        jTextFieldNomeDaVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNomeDaVendaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldNomeDaVendaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNomeDaVendaKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelAddOrRemoveF1Layout = new javax.swing.GroupLayout(jPanelAddOrRemoveF1);
+        jPanelAddOrRemoveF1.setLayout(jPanelAddOrRemoveF1Layout);
+        jPanelAddOrRemoveF1Layout.setHorizontalGroup(
+            jPanelAddOrRemoveF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAddOrRemoveF1Layout.createSequentialGroup()
+                .addComponent(jButtonAdicionarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(297, 297, 297)
+                .addComponent(jTextFieldNomeDaVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonRefreshV, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanelAddOrRemoveF1Layout.setVerticalGroup(
+            jPanelAddOrRemoveF1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButtonAdicionarVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+            .addComponent(jButtonRefreshV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jTextFieldNomeDaVenda)
+        );
+
+        jTableVendas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nome do Produto", "Nome do Funcionário", "Nome do Cliente", "Qtd", "Preço unitário", "Preço final", "Data_venda"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableVendas.getTableHeader().setReorderingAllowed(false);
+        jTableVendas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableVendasMouseClicked(evt);
+            }
+        });
+        jScrollPaneVendas.setViewportView(jTableVendas);
+        if (jTableVendas.getColumnModel().getColumnCount() > 0) {
+            jTableVendas.getColumnModel().getColumn(0).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(1).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(2).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(3).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(4).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(5).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(6).setResizable(false);
+            jTableVendas.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanelVendasLayout = new javax.swing.GroupLayout(jPanelVendas);
+        jPanelVendas.setLayout(jPanelVendasLayout);
+        jPanelVendasLayout.setHorizontalGroup(
+            jPanelVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelVendasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPaneVendas)
+                    .addComponent(jLabelVender, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+                    .addComponent(jPanelAddOrRemoveF1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelVendasLayout.setVerticalGroup(
+            jPanelVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelVendasLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabelVender)
+                .addGap(29, 29, 29)
+                .addComponent(jPanelAddOrRemoveF1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPaneVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanelTela.add(jPanelVendas, "vendas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -627,7 +735,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void jButtonVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVenderActionPerformed
         CardLayout cl = (CardLayout) jPanelTela.getLayout();
-        cl.show(jPanelTela, "vender");
+        cl.show(jPanelTela, "vendas");
     }//GEN-LAST:event_jButtonVenderActionPerformed
 
     private void jButtonEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstoqueActionPerformed
@@ -946,10 +1054,93 @@ public class PrincipalView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTableEstoqueMouseClicked
 
+    private void jButtonAdicionarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarVendaActionPerformed
+
+        try {
+            vendaController.abrirTelaCadastrarVenda();
+        } catch (Exception ex) {
+            System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonAdicionarVendaActionPerformed
+
+    private void jButtonRefreshVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshVActionPerformed
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRefreshVActionPerformed
+
+    private void jTextFieldNomeDaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyPressed
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyPressed
+
+    private void jTextFieldNomeDaVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyReleased
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyReleased
+
+    private void jTextFieldNomeDaVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyTyped
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyTyped
+
+    private void jTableVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVendasMouseClicked
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTableVendasMouseClicked
+
+    private void jTextFieldNomeDaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaActionPerformed
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeDaVendaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarClientes;
     private javax.swing.JButton jButtonAdicionarFuncionarios;
     private javax.swing.JButton jButtonAdicionarProdutos;
+    private javax.swing.JButton jButtonAdicionarVenda;
     private javax.swing.JButton jButtonClientes;
     private javax.swing.JButton jButtonEstoque;
     private javax.swing.JButton jButtonFuncionarios;
@@ -957,6 +1148,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRefreshC;
     private javax.swing.JButton jButtonRefreshF;
     private javax.swing.JButton jButtonRefreshP;
+    private javax.swing.JButton jButtonRefreshV;
     private javax.swing.JButton jButtonRemoverClientes;
     private javax.swing.JButton jButtonRemoverFuncionarios;
     private javax.swing.JButton jButtonRemoverProdutos;
@@ -968,6 +1160,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelVender;
     private javax.swing.JPanel jPanelAddOrRemoveC;
     private javax.swing.JPanel jPanelAddOrRemoveF;
+    private javax.swing.JPanel jPanelAddOrRemoveF1;
     private javax.swing.JPanel jPanelAddOrRemoveP;
     private javax.swing.JPanel jPanelClientes;
     private javax.swing.JPanel jPanelEstoque;
@@ -975,14 +1168,17 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelInicio;
     private javax.swing.JPanel jPanelOpcoes;
     private javax.swing.JPanel jPanelTela;
-    private javax.swing.JPanel jPanelVender;
+    private javax.swing.JPanel jPanelVendas;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPaneFuncionarios;
+    private javax.swing.JScrollPane jScrollPaneVendas;
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableEstoque;
     private javax.swing.JTable jTableFuncionarios;
+    private javax.swing.JTable jTableVendas;
     private javax.swing.JTextField jTextFieldNomeCliente;
+    private javax.swing.JTextField jTextFieldNomeDaVenda;
     private javax.swing.JTextField jTextFieldNomeFuncionario;
     private javax.swing.JTextField jTextFieldNomeProduto;
     // End of variables declaration//GEN-END:variables

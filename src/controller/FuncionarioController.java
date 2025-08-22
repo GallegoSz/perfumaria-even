@@ -60,8 +60,7 @@ public class FuncionarioController {
         try {
             salario = Double.parseDouble(salarioString);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Formato do salário inválido");
-            return false;
+            throw new IllegalArgumentException("Formato do salário inválido");
         }
         
        

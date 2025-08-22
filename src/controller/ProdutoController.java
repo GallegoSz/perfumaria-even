@@ -103,7 +103,7 @@ public class ProdutoController {
 
     }
 
-    public void abrirTelaExcluirProduto(int id) {
+    public void abrirTelaExcluirProduto(int id) throws Exception {
         try {
             produto = produtoService.buscarId(id);
             produto.setId(id);
@@ -114,19 +114,19 @@ public class ProdutoController {
                 produtoService.apagarProduto(id);
             }
             
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao  Excluir Cliente: " + e.getMessage());
+        } catch (IllegalArgumentException | SQLException e) {
+            throw new Exception("Erro ao  Excluir produto: " + e.getMessage());
         }
     }
 
-    public void abrirTelaEditarProduto(int id) {
+    public void abrirTelaEditarProduto(int id) throws Exception {
         try {
             produto = produtoService.buscarId(id);
             produto.setId(id);
             new view.produto.AlterarDadosProdutoView(produto).setVisible(true);
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao abrir a tela Editar Produto: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            throw new Exception("Erro ao abrir a tela Editar Produto: " + e.getMessage());
         }
         
     }
@@ -167,7 +167,7 @@ public class ProdutoController {
         }
         
         if (preco == 0) {
-            throw new IllegalArgumentException("O valor do preço tem que ser maio que zero.");
+            throw new IllegalArgumentException("O valor do preço tem que ser maior que zero.");
         }
         
         if (qtd == 0) {
