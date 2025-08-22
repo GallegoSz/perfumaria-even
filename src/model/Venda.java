@@ -3,31 +3,63 @@ package model;
 import java.time.LocalDateTime;
 
 public class Venda {
-    private String id;
+    private int id;
     private Produto produto;
     private Funcionario funcionario;
     private Cliente cliente;
-    private LocalDateTime dataHora;
     private int qtd;
+    private double precoUnitario;
+    private double precoFinal;
+    private LocalDateTime dataVenda;
 
-    public Venda(Produto produto, Funcionario funcionario, Cliente cliente, LocalDateTime dataHora, int qtd) {
+    
+
+    public Venda(Produto produto, Funcionario funcionario, Cliente cliente, int qtd) {
         this.produto = produto;
         this.funcionario = funcionario;
         this.cliente = cliente;
-        this.dataHora = dataHora;
         this.qtd = qtd;
+        this.precoUnitario = produto.getPreco();
+        this.precoFinal = this.qtd * this.precoUnitario;
     }
+
+    public LocalDateTime getDataVenda() {
+        return dataVenda;
+    }
+
+    public void setDataVenda(LocalDateTime dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getPrecoFinal() {
+        return precoFinal;
+    }
+
+    public void setPrecoFinal(double precoFinal) {
+        this.precoFinal = precoFinal;
+    }
+
+    public double getPrecoUnitario() {
+        return precoUnitario;
+    }
+
+    public void setPrecoUnitario(double precoUnitario) {
+        this.precoUnitario = precoUnitario;
+    }
+
 
     public Venda() {
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    
     
     public int getQtd() {
         return qtd;
@@ -60,16 +92,6 @@ public class Venda {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-    
-    
 }
 
 

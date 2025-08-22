@@ -7,7 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Produto;
 
+
 public class ProdutoDAO {
+
+    public static boolean atualizarEstoque(Produto produto, int qtdRequerida) throws SQLException {
+        String atualizarEstoque = "UPDATE produtos SET qtd = qtd - ? WHERE id = ?";
+        
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(atualizarEstoque)){
+            ps.setInt(1, qtdRequerida);
+            ps.setInt(2, produto.getId());
+            
+            ps.execute();
+            ps.close();
+        }
+        return true;
+    }
+    
+    
     public void cadastrarProduto(Produto produto) throws SQLException {
         String sql = "INSERT INTO produtos (NOME, MARCA, PRECO, QTD) VALUES (?, ?, ?, ?)";
         
