@@ -8,6 +8,11 @@ import controller.VendaController;
 import java.awt.CardLayout;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+
 
 public class PrincipalView extends javax.swing.JFrame {
     
@@ -24,6 +29,7 @@ public class PrincipalView extends javax.swing.JFrame {
             funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
             vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar dados iniciais: " + ex.getMessage());
         }
@@ -33,6 +39,7 @@ public class PrincipalView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanelOpcoes = new javax.swing.JPanel();
         jButtonInicio = new javax.swing.JButton();
         jButtonVender = new javax.swing.JButton();
@@ -42,6 +49,23 @@ public class PrincipalView extends javax.swing.JFrame {
         jPanelTela = new javax.swing.JPanel();
         jPanelInicio = new javax.swing.JPanel();
         jLabelInicio = new javax.swing.JLabel();
+        jTabbedPane = new javax.swing.JTabbedPane();
+        jPanelInicioVendas = new javax.swing.JPanel();
+        jLabelEscolherMesVendas = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableInicioVendas = new javax.swing.JTable();
+        jPanelInicioEstoque = new javax.swing.JPanel();
+        jLabelProdutosEstoqueB = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTableProdutosEstoqueBaixo = new javax.swing.JTable();
+        jPanelInicioFuncionarios = new javax.swing.JPanel();
+        jLabelProdutosEstoqueB1 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanelInicioClientes = new javax.swing.JPanel();
+        jLabelProdutosEstoqueB2 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
         jPanelFuncionarios = new javax.swing.JPanel();
         jLabelFuncionarios = new javax.swing.JLabel();
         jPanelAddOrRemoveF = new javax.swing.JPanel();
@@ -78,6 +102,8 @@ public class PrincipalView extends javax.swing.JFrame {
         jScrollPaneVendas = new javax.swing.JScrollPane();
         jTableVendas = new javax.swing.JTable();
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Perfumaria Even");
 
@@ -89,7 +115,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonInicio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonInicio.setForeground(new java.awt.Color(255, 255, 255));
         jButtonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/home.png"))); // NOI18N
-        jButtonInicio.setMnemonic('I');
         jButtonInicio.setText("Início");
         jButtonInicio.setBorderPainted(false);
         jButtonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -105,7 +130,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonVender.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonVender.setForeground(new java.awt.Color(255, 255, 255));
         jButtonVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/sell.png"))); // NOI18N
-        jButtonVender.setMnemonic('V');
         jButtonVender.setText("Vender");
         jButtonVender.setBorderPainted(false);
         jButtonVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -121,7 +145,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonEstoque.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonEstoque.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/stock.png"))); // NOI18N
-        jButtonEstoque.setMnemonic('E');
         jButtonEstoque.setText("Estoque");
         jButtonEstoque.setBorderPainted(false);
         jButtonEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -137,7 +160,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonFuncionarios.setForeground(new java.awt.Color(255, 255, 255));
         jButtonFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/employees.png"))); // NOI18N
-        jButtonFuncionarios.setMnemonic('F');
         jButtonFuncionarios.setText("Funcionarios");
         jButtonFuncionarios.setBorderPainted(false);
         jButtonFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -153,7 +175,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonClientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonClientes.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/customers.png"))); // NOI18N
-        jButtonClientes.setMnemonic('C');
         jButtonClientes.setText("Clientes");
         jButtonClientes.setBorderPainted(false);
         jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -170,13 +191,212 @@ public class PrincipalView extends javax.swing.JFrame {
         jLabelInicio.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 48)); // NOI18N
         jLabelInicio.setText("Início");
 
+        jLabelEscolherMesVendas.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabelEscolherMesVendas.setText("Escolha o mês que deseja visualizar:");
+
+        jTableInicioVendas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "produto_id", "funcionario_id", "cliente_id", "Qtd", "Preço unitário", "Preço final", "Data"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableInicioVendas);
+        if (jTableInicioVendas.getColumnModel().getColumnCount() > 0) {
+            jTableInicioVendas.getColumnModel().getColumn(0).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(1).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(2).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(3).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(4).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(5).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(6).setResizable(false);
+            jTableInicioVendas.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanelInicioVendasLayout = new javax.swing.GroupLayout(jPanelInicioVendas);
+        jPanelInicioVendas.setLayout(jPanelInicioVendasLayout);
+        jPanelInicioVendasLayout.setHorizontalGroup(
+            jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioVendasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE)
+                    .addGroup(jPanelInicioVendasLayout.createSequentialGroup()
+                        .addComponent(jLabelEscolherMesVendas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanelInicioVendasLayout.setVerticalGroup(
+            jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioVendasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelEscolherMesVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        Calendar calendar = Calendar.getInstance();
+        Date hoje = calendar.getTime();
+        SpinnerDateModel model = new SpinnerDateModel(hoje, null, null, Calendar.MONTH);
+        jSpinner1.setModel(model);
+
+        // Editor para mostrar apenas mês e ano
+        JSpinner.DateEditor editor = new JSpinner.DateEditor(jSpinner1, "MM/yyyy");
+        jSpinner1.setEditor(editor);
+
+        jTabbedPane.addTab("Vendas", jPanelInicioVendas);
+
+        jLabelProdutosEstoqueB.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabelProdutosEstoqueB.setText("Produtos com estoque baixo:");
+
+        jTableProdutosEstoqueBaixo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Id", "Nome", "Preço", "Qtd"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(jTableProdutosEstoqueBaixo);
+        if (jTableProdutosEstoqueBaixo.getColumnModel().getColumnCount() > 0) {
+            jTableProdutosEstoqueBaixo.getColumnModel().getColumn(0).setResizable(false);
+            jTableProdutosEstoqueBaixo.getColumnModel().getColumn(1).setResizable(false);
+            jTableProdutosEstoqueBaixo.getColumnModel().getColumn(2).setResizable(false);
+            jTableProdutosEstoqueBaixo.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanelInicioEstoqueLayout = new javax.swing.GroupLayout(jPanelInicioEstoque);
+        jPanelInicioEstoque.setLayout(jPanelInicioEstoqueLayout);
+        jPanelInicioEstoqueLayout.setHorizontalGroup(
+            jPanelInicioEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioEstoqueLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInicioEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInicioEstoqueLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanelInicioEstoqueLayout.createSequentialGroup()
+                        .addComponent(jLabelProdutosEstoqueB)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanelInicioEstoqueLayout.setVerticalGroup(
+            jPanelInicioEstoqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioEstoqueLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelProdutosEstoqueB, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
+        );
+
+        jTabbedPane.addTab("Estoque", jPanelInicioEstoque);
+
+        jLabelProdutosEstoqueB1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabelProdutosEstoqueB1.setText("Funcionários com a maior porcentagem de vendas realizadas:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id", "Nome", "Senha", "Email", "Salário", "Admin"
+            }
+        ));
+        jScrollPane5.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanelInicioFuncionariosLayout = new javax.swing.GroupLayout(jPanelInicioFuncionarios);
+        jPanelInicioFuncionarios.setLayout(jPanelInicioFuncionariosLayout);
+        jPanelInicioFuncionariosLayout.setHorizontalGroup(
+            jPanelInicioFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioFuncionariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInicioFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInicioFuncionariosLayout.createSequentialGroup()
+                        .addComponent(jLabelProdutosEstoqueB1)
+                        .addGap(0, 356, Short.MAX_VALUE))
+                    .addComponent(jScrollPane5))
+                .addContainerGap())
+        );
+        jPanelInicioFuncionariosLayout.setVerticalGroup(
+            jPanelInicioFuncionariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioFuncionariosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelProdutosEstoqueB1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane.addTab("Funcionários", jPanelInicioFuncionarios);
+
+        jLabelProdutosEstoqueB2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        jLabelProdutosEstoqueB2.setText("Melhores clientes:");
+
+        javax.swing.GroupLayout jPanelInicioClientesLayout = new javax.swing.GroupLayout(jPanelInicioClientes);
+        jPanelInicioClientes.setLayout(jPanelInicioClientesLayout);
+        jPanelInicioClientesLayout.setHorizontalGroup(
+            jPanelInicioClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioClientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelInicioClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInicioClientesLayout.createSequentialGroup()
+                        .addComponent(jLabelProdutosEstoqueB2)
+                        .addGap(0, 704, Short.MAX_VALUE))
+                    .addComponent(jScrollPane6))
+                .addContainerGap())
+        );
+        jPanelInicioClientesLayout.setVerticalGroup(
+            jPanelInicioClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelInicioClientesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelProdutosEstoqueB2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane.addTab("Clientes", jPanelInicioClientes);
+
         javax.swing.GroupLayout jPanelInicioLayout = new javax.swing.GroupLayout(jPanelInicio);
         jPanelInicio.setLayout(jPanelInicioLayout);
         jPanelInicioLayout.setHorizontalGroup(
             jPanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInicioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+                .addGroup(jPanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInicioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane))
                 .addContainerGap())
         );
         jPanelInicioLayout.setVerticalGroup(
@@ -184,7 +404,9 @@ public class PrincipalView extends javax.swing.JFrame {
             .addGroup(jPanelInicioLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabelInicio)
-                .addContainerGap(535, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane)
+                .addContainerGap())
         );
 
         jPanelTela.add(jPanelInicio, "inicio");
@@ -194,7 +416,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarFuncionarios.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonAdicionarFuncionarios.setMnemonic('A');
         jButtonAdicionarFuncionarios.setText("Adicionar");
         jButtonAdicionarFuncionarios.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -206,7 +427,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRemoverFuncionarios.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRemoverFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonRemoverFuncionarios.setMnemonic('R');
         jButtonRemoverFuncionarios.setText("Remover");
         jButtonRemoverFuncionarios.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
         jButtonRemoverFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -218,7 +438,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshF.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
-        jButtonRefreshF.setMnemonic('U');
         jButtonRefreshF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshFActionPerformed(evt);
@@ -323,7 +542,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarClientes.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonAdicionarClientes.setMnemonic('A');
         jButtonAdicionarClientes.setText("Adicionar");
         jButtonAdicionarClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -335,7 +553,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRemoverClientes.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRemoverClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonRemoverClientes.setMnemonic('R');
         jButtonRemoverClientes.setText("Remover");
         jButtonRemoverClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
         jButtonRemoverClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -347,7 +564,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshC.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
-        jButtonRefreshC.setMnemonic('R');
         jButtonRefreshC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshCActionPerformed(evt);
@@ -458,7 +674,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarProdutos.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonAdicionarProdutos.setMnemonic('A');
         jButtonAdicionarProdutos.setText("Adicionar");
         jButtonAdicionarProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -470,7 +685,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRemoverProdutos.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRemoverProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonRemoverProdutos.setMnemonic('R');
         jButtonRemoverProdutos.setText("Remover");
         jButtonRemoverProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
         jButtonRemoverProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -482,7 +696,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshP.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
-        jButtonRefreshP.setMnemonic('R');
         jButtonRefreshP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshPActionPerformed(evt);
@@ -593,7 +806,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarVenda.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButtonAdicionarVenda.setMnemonic('A');
         jButtonAdicionarVenda.setText("Adicionar");
         jButtonAdicionarVenda.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -605,7 +817,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshV.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
-        jButtonRefreshV.setMnemonic('U');
         jButtonRefreshV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshVActionPerformed(evt);
@@ -1153,10 +1364,15 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRemoverFuncionarios;
     private javax.swing.JButton jButtonRemoverProdutos;
     private javax.swing.JButton jButtonVender;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabelClientes;
+    private javax.swing.JLabel jLabelEscolherMesVendas;
     private javax.swing.JLabel jLabelEstoque;
     private javax.swing.JLabel jLabelFuncionarios;
     private javax.swing.JLabel jLabelInicio;
+    private javax.swing.JLabel jLabelProdutosEstoqueB;
+    private javax.swing.JLabel jLabelProdutosEstoqueB1;
+    private javax.swing.JLabel jLabelProdutosEstoqueB2;
     private javax.swing.JLabel jLabelVender;
     private javax.swing.JPanel jPanelAddOrRemoveC;
     private javax.swing.JPanel jPanelAddOrRemoveF;
@@ -1166,16 +1382,29 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelEstoque;
     private javax.swing.JPanel jPanelFuncionarios;
     private javax.swing.JPanel jPanelInicio;
+    private javax.swing.JPanel jPanelInicioClientes;
+    private javax.swing.JPanel jPanelInicioEstoque;
+    private javax.swing.JPanel jPanelInicioFuncionarios;
+    private javax.swing.JPanel jPanelInicioVendas;
     private javax.swing.JPanel jPanelOpcoes;
     private javax.swing.JPanel jPanelTela;
     private javax.swing.JPanel jPanelVendas;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPaneFuncionarios;
     private javax.swing.JScrollPane jScrollPaneVendas;
+    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JTabbedPane jTabbedPane;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableEstoque;
     private javax.swing.JTable jTableFuncionarios;
+    private javax.swing.JTable jTableInicioVendas;
+    private javax.swing.JTable jTableProdutosEstoqueBaixo;
     private javax.swing.JTable jTableVendas;
     private javax.swing.JTextField jTextFieldNomeCliente;
     private javax.swing.JTextField jTextFieldNomeDaVenda;
