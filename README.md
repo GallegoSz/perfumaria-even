@@ -35,7 +35,6 @@ fazer
 ## Requisitos
 - Java JDK 21 ou superior
 - IDE de sua preferência (IntelliJ, Eclipse, NetBeans)
-- Sistema operacional: Windows, Linux ou MacOS
 
 ---
 
