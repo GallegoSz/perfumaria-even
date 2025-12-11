@@ -53,32 +53,32 @@ public class ProdutoDAO {
     }
     
     public List<Produto> listarProdutos() throws SQLException {
-        List<Produto> lista = new ArrayList<>();
-        String sql = "SELECT * FROM produtos";
+            List<Produto> lista = new ArrayList<>();
+            String sql = "SELECT * FROM produtos";
 
-        ResultSet rs = null;
+            ResultSet rs = null;
 
-        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);){
-            
-            rs = ps.executeQuery();
+            try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);){
 
-            while (rs.next()) {
-                Produto p = new Produto();
-                p.setId(rs.getInt("id"));
-                p.setNome(rs.getString("nome"));
-                p.setMarca(rs.getString("marca"));
-                p.setPreco(rs.getDouble("preco"));
-                p.setQtd(rs.getInt("qtd"));
+                rs = ps.executeQuery();
 
-                lista.add(p);
+                while (rs.next()) {
+                    Produto p = new Produto();
+                    p.setId(rs.getInt("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setMarca(rs.getString("marca"));
+                    p.setPreco(rs.getDouble("preco"));
+                    p.setQtd(rs.getInt("qtd"));
+
+                    lista.add(p);
+                }
+
+                rs.close();
+                ps.close();
             }
 
-            rs.close();
-            ps.close();
-        }
-
-        return lista;
-        }
+            return lista;
+    }
     
     public List<Produto> buscarProdutos(String nomeBusca) throws SQLException {
         List<Produto> lista = new ArrayList<>();
@@ -153,6 +153,36 @@ public class ProdutoDAO {
             ps.execute();
             ps.close();
         }
+    }
+    
+     public List<Produto> buscarProdutosComEstoqueBaixo(int limite) throws SQLException {
+        List<Produto> lista = new ArrayList<>();
+        String sql = "SELECT * FROM produtos WHERE qtd <= ?"; 
+
+        ResultSet rs = null;
+
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql)) {
+            ps.setInt(1, limite); 
+            
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Produto p = new Produto();
+                p.setId(rs.getInt("id"));
+                p.setNome(rs.getString("nome"));
+                p.setMarca(rs.getString("marca"));                 
+                p.setPreco(rs.getDouble("preco"));
+                p.setQtd(rs.getInt("qtd"));
+
+                lista.add(p);
+            }
+
+            if (rs != null) {
+                rs.close(); 
+            }
+        }
+
+        return lista;
     }
 }
 

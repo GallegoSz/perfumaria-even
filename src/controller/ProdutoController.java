@@ -187,4 +187,20 @@ public class ProdutoController {
        
     }
     
+    public void buscarProdutosComEstoqueBaixo(TableModel model) throws Exception {
+        List<Produto> lista = produtoService.buscarProdutosComEstoqueBaixo();
+
+        DefaultTableModel modelo = (DefaultTableModel) model;
+        modelo.setRowCount(0);
+        
+        for (Produto p : lista) {
+            modelo.addRow(new Object[]{ 
+                p.getId(),
+                p.getNome(),
+                p.getMarca(),
+                p.getPreco(),
+                p.getQtd()
+            });
+        }       
+    }
 }

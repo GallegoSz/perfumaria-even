@@ -78,6 +78,13 @@ public class ProdutoService {
         
     }
     
-    
+    public List<Produto> buscarProdutosComEstoqueBaixo() throws SQLException {
+        int limiteEstoqueBaixo = 10; 
+        try {
+            return dao.buscarProdutosComEstoqueBaixo(limiteEstoqueBaixo);
+        } catch (Exception e) {
+            throw new SQLException("Erro ao buscar produtos com estoque baixo: " + e.getMessage(), e);
+        }
+    }
 }
 

@@ -28,6 +28,7 @@ public class PrincipalView extends javax.swing.JFrame {
             clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
             funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+            produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
             vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
 
         } catch (Exception ex) {
@@ -61,6 +62,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jPanelInicioClientes = new javax.swing.JPanel();
         jLabelProdutosEstoqueB2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
+        jButtonRefreshInicio = new javax.swing.JButton();
         jPanelFuncionarios = new javax.swing.JPanel();
         jLabelFuncionarios = new javax.swing.JLabel();
         jPanelAddOrRemoveF = new javax.swing.JPanel();
@@ -110,6 +112,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonInicio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonInicio.setForeground(new java.awt.Color(255, 255, 255));
         jButtonInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/home.png"))); // NOI18N
+        jButtonInicio.setMnemonic('I');
         jButtonInicio.setText("Início");
         jButtonInicio.setBorderPainted(false);
         jButtonInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -125,6 +128,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonVender.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonVender.setForeground(new java.awt.Color(255, 255, 255));
         jButtonVender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/sell.png"))); // NOI18N
+        jButtonVender.setMnemonic('V');
         jButtonVender.setText("Vender");
         jButtonVender.setBorderPainted(false);
         jButtonVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -140,6 +144,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonEstoque.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonEstoque.setForeground(new java.awt.Color(255, 255, 255));
         jButtonEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/stock.png"))); // NOI18N
+        jButtonEstoque.setMnemonic('E');
         jButtonEstoque.setText("Estoque");
         jButtonEstoque.setBorderPainted(false);
         jButtonEstoque.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -155,6 +160,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonFuncionarios.setForeground(new java.awt.Color(255, 255, 255));
         jButtonFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/employees.png"))); // NOI18N
+        jButtonFuncionarios.setMnemonic('F');
         jButtonFuncionarios.setText("Funcionarios");
         jButtonFuncionarios.setBorderPainted(false);
         jButtonFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -170,6 +176,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jButtonClientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButtonClientes.setForeground(new java.awt.Color(255, 255, 255));
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/customers.png"))); // NOI18N
+        jButtonClientes.setMnemonic('C');
         jButtonClientes.setText("Clientes");
         jButtonClientes.setBorderPainted(false);
         jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -191,21 +198,23 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jTableProdutosEstoqueBaixo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Id", "Nome", "Preço", "Qtd"
+                "Id", "Nome", "Marca", "Preço", "Qtd"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTableProdutosEstoqueBaixo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProdutosEstoqueBaixoMouseClicked(evt);
             }
         });
         jScrollPane4.setViewportView(jTableProdutosEstoqueBaixo);
@@ -214,6 +223,7 @@ public class PrincipalView extends javax.swing.JFrame {
             jTableProdutosEstoqueBaixo.getColumnModel().getColumn(1).setResizable(false);
             jTableProdutosEstoqueBaixo.getColumnModel().getColumn(2).setResizable(false);
             jTableProdutosEstoqueBaixo.getColumnModel().getColumn(3).setResizable(false);
+            jTableProdutosEstoqueBaixo.getColumnModel().getColumn(4).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanelInicioEstoqueLayout = new javax.swing.GroupLayout(jPanelInicioEstoque);
@@ -310,6 +320,15 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jTabbedPane.addTab("Clientes", jPanelInicioClientes);
 
+        jButtonRefreshInicio.setBackground(new java.awt.Color(245, 245, 245));
+        jButtonRefreshInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
+        jButtonRefreshInicio.setMnemonic('U');
+        jButtonRefreshInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRefreshInicioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelInicioLayout = new javax.swing.GroupLayout(jPanelInicio);
         jPanelInicio.setLayout(jPanelInicioLayout);
         jPanelInicioLayout.setHorizontalGroup(
@@ -318,16 +337,24 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addGroup(jPanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelInicioLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonRefreshInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTabbedPane))
                 .addContainerGap())
         );
         jPanelInicioLayout.setVerticalGroup(
             jPanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInicioLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabelInicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelInicioLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabelInicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInicioLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonRefreshInicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jTabbedPane)
                 .addContainerGap())
         );
@@ -339,6 +366,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarFuncionarios.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonAdicionarFuncionarios.setMnemonic('A');
         jButtonAdicionarFuncionarios.setText("Adicionar");
         jButtonAdicionarFuncionarios.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -350,6 +378,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRemoverFuncionarios.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRemoverFuncionarios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonRemoverFuncionarios.setMnemonic('R');
         jButtonRemoverFuncionarios.setText("Remover");
         jButtonRemoverFuncionarios.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
         jButtonRemoverFuncionarios.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -361,6 +390,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshF.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
+        jButtonRefreshF.setMnemonic('U');
         jButtonRefreshF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshFActionPerformed(evt);
@@ -465,6 +495,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarClientes.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonAdicionarClientes.setMnemonic('A');
         jButtonAdicionarClientes.setText("Adicionar");
         jButtonAdicionarClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -476,6 +507,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRemoverClientes.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRemoverClientes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonRemoverClientes.setMnemonic('R');
         jButtonRemoverClientes.setText("Remover");
         jButtonRemoverClientes.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
         jButtonRemoverClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -487,6 +519,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshC.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
+        jButtonRefreshC.setMnemonic('R');
         jButtonRefreshC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshCActionPerformed(evt);
@@ -597,6 +630,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarProdutos.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonAdicionarProdutos.setMnemonic('A');
         jButtonAdicionarProdutos.setText("Adicionar");
         jButtonAdicionarProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -608,6 +642,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRemoverProdutos.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRemoverProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonRemoverProdutos.setMnemonic('R');
         jButtonRemoverProdutos.setText("Remover");
         jButtonRemoverProdutos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 51, 51), null));
         jButtonRemoverProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -619,6 +654,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshP.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
+        jButtonRefreshP.setMnemonic('R');
         jButtonRefreshP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshPActionPerformed(evt);
@@ -729,6 +765,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonAdicionarVenda.setBackground(new java.awt.Color(245, 245, 245));
         jButtonAdicionarVenda.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButtonAdicionarVenda.setMnemonic('A');
         jButtonAdicionarVenda.setText("Adicionar");
         jButtonAdicionarVenda.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(102, 255, 102), null));
         jButtonAdicionarVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -740,6 +777,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jButtonRefreshV.setBackground(new java.awt.Color(245, 245, 245));
         jButtonRefreshV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/refresh.png"))); // NOI18N
+        jButtonRefreshV.setMnemonic('U');
         jButtonRefreshV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRefreshVActionPerformed(evt);
@@ -1270,6 +1308,39 @@ public class PrincipalView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldNomeDaVendaActionPerformed
 
+    private void jTableProdutosEstoqueBaixoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosEstoqueBaixoMouseClicked
+        if (evt.getClickCount() == 2) {
+            linha = jTableEstoque.rowAtPoint(evt.getPoint());
+            
+            if (linha != -1) {
+                Object valordoId = jTableEstoque.getValueAt(linha, 0);
+                
+                int id = Integer.parseInt(valordoId.toString());
+                try {
+                    produtoController.abrirTelaEditarProduto(id);
+                    
+                    
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+            
+            try {
+                produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
+            } catch (Exception ex) {
+                System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTableProdutosEstoqueBaixoMouseClicked
+
+    private void jButtonRefreshInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshInicioActionPerformed
+        try {
+            produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
+        } catch (Exception ex) {
+            System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_jButtonRefreshInicioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarClientes;
     private javax.swing.JButton jButtonAdicionarFuncionarios;
@@ -1281,6 +1352,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonInicio;
     private javax.swing.JButton jButtonRefreshC;
     private javax.swing.JButton jButtonRefreshF;
+    private javax.swing.JButton jButtonRefreshInicio;
     private javax.swing.JButton jButtonRefreshP;
     private javax.swing.JButton jButtonRefreshV;
     private javax.swing.JButton jButtonRemoverClientes;
