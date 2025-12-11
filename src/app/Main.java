@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
             try {
-                new PrincipalView().setVisible(true);
+                new LoginView().setVisible(true);
             } catch (Exception ex) {
                 System.getLogger(Main.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }

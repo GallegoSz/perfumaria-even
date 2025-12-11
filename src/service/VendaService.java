@@ -2,52 +2,49 @@ package service;
 
 import dao.ProdutoDAO;
 import dao.VendaDAO;
-import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Funcionario;
 import model.Produto;
 import model.Venda;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- *
- * @author gallego
- */
 public class VendaService {
-    private VendaDAO vendaDao = new VendaDAO();
-    private Venda venda = new Venda();
 
-    public void efetuarVenda(Produto produto, Cliente cliente, Funcionario funcionario, int qtdRequerida, double precoFinal) throws IllegalArgumentException, SQLException{
+    private final VendaDAO vendaDao = new VendaDAO();
+
+    public void efetuarVenda(Produto produto, Cliente cliente, Funcionario funcionario,
+                             int qtdRequerida, double precoFinal)
+            throws IllegalArgumentException, SQLException {
+
         if (qtdRequerida > produto.getQtd()) {
-            throw new IllegalArgumentException("A quantidade requerida foi maior que a disponível em estoque.");
+            throw new IllegalArgumentException("A quantidade requerida é maior que o estoque disponível.");
         }
-        
-        
-        
-        boolean sucesso;
-        
+
+        Venda venda = new Venda(produto, funcionario, cliente, qtdRequerida);
+        venda.setPrecoFinal(precoFinal);
+        venda.setDataVenda(LocalDateTime.now());
+
         try {
-            sucesso = vendaDao.efetuarVenda(produto, cliente, funcionario, qtdRequerida, precoFinal);
+            Venda vendaSalva = vendaDao.efetuarVenda(venda);
+
+            GeradorDeXMLService.gerarNFCe(vendaSalva);
+
+            ProdutoDAO.atualizarEstoque(produto, qtdRequerida);
+
         } catch (SQLException e) {
             throw new SQLException("Erro ao cadastrar a venda no banco: " + e.getMessage(), e);
-        }
-        
-        
-        if (sucesso) {
-            ProdutoDAO.atualizarEstoque(produto, qtdRequerida);
-            
         }
     }
 
     public List<Venda> buscarVendas(String nome) throws SQLException {
-         try {
+        try {
             return vendaDao.buscarVendas(nome);
         } catch (SQLException e) {
-            throw new SQLException("Erro ao buscar produtos: " + e.getMessage(), e);
+            throw new SQLException("Erro ao buscar vendas: " + e.getMessage(), e);
         }
     }
-
-    
-    
 }
+
+

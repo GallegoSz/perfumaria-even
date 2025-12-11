@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe>
+<infNFe versao="4.00" Id="">
+  <emit>
+    <CNPJ>12345678000199</CNPJ>
+    <xNome>Perfumaria Even</xNome>
+    <enderEmit>
+      <xLgr>Rua Teste</xLgr>
+      <nro>123</nro>
+      <xBairro>Centro</xBairro>
+      <cMun>5103403</cMun>
+      <xMun>Cuiaba</xMun>
+      <UF>MT</UF>
+      <CEP>78000000</CEP>
+    </enderEmit>
+    <IE>123456789</IE>
+    <CRT>1</CRT>
+  </emit>
+  <det nItem="1">
+    <prod>
+      <cProd>1</cProd>
+      <xProd>Cheiro Boms</xProd>
+      <qCom>1</qCom>
+      <vUnCom>500.0</vUnCom>
+      <vProd>500.0</vProd>
+      <CFOP>5102</CFOP>
+      <uCom>UN</uCom>
+    </prod>
+  </det>
+  <total>
+    <ICMSTot>
+      <vProd>500.0</vProd>
+      <vNF>500.0</vNF>
+    </ICMSTot>
+  </total>
+  <ide>
+    <dhEmi>2025-12-11T14:53:20.8755057</dhEmi>
+    <tpNF>1</tpNF>
+    <idDest>1</idDest>
+    <tpImp>4</tpImp>
+    <tpEmis>9</tpEmis> <!-- Contingência offline -->
+    <cDV>0</cDV>
+  </ide>
+</infNFe>
+</NFe>
