@@ -17,11 +17,10 @@ fazer
 ---
 
 ## Funcionalidades
-- Sistema de login com diferentes níveis de acesso (administrador, funcionário)
 - CRUD completo de **clientes**, **funcionários** e **produtos**
 - Interface gráfica intuitiva e funcional em Swing
 - Organização e controle eficiente das operações da loja
-
+- Emissão de notas fiscais de maneira offline
 ---
 
 ## Tecnologias Utilizadas
