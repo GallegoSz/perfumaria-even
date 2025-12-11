@@ -5,6 +5,7 @@
 package view.login;
 
 import controller.LoginController;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 
 
@@ -23,7 +24,7 @@ public class LoginView extends javax.swing.JFrame {
         jButtonRealizarLogin = new javax.swing.JButton();
         jLabelIconUSer = new javax.swing.JLabel();
         jLabelIconPassword = new javax.swing.JLabel();
-        jTextFieldSenha = new javax.swing.JTextField();
+        jPasswordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Perfumaria Even - Login");
@@ -50,8 +51,8 @@ public class LoginView extends javax.swing.JFrame {
         jLabelIconPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/imgs/password.png"))); // NOI18N
         jLabelIconPassword.setText("jLabel2");
 
-        jTextFieldSenha.setBackground(new java.awt.Color(242, 242, 242));
-        jTextFieldSenha.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
+        jPasswordField.setBackground(new java.awt.Color(242, 242, 242));
+        jPasswordField.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Senha", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,7 +61,7 @@ public class LoginView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabelImgPerfumariaEven)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jButtonRealizarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -71,7 +72,7 @@ public class LoginView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelIconPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPasswordField)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,12 +83,10 @@ public class LoginView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelIconUSer))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabelIconPassword)))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelIconPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPasswordField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonRealizarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(234, 234, 234))
@@ -99,7 +98,7 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButtonRealizarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRealizarLoginActionPerformed
         String usuario = jTextFieldUsuario.getText().trim();
-        String senha = jTextFieldSenha.getText().trim();
+        String senha = jPasswordField.getText().trim();
         
         LoginController loginController = new LoginController();
         
@@ -120,7 +119,7 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelIconPassword;
     private javax.swing.JLabel jLabelIconUSer;
     private javax.swing.JLabel jLabelImgPerfumariaEven;
-    private javax.swing.JTextField jTextFieldSenha;
+    private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JTextField jTextFieldUsuario;
     // End of variables declaration//GEN-END:variables
 }

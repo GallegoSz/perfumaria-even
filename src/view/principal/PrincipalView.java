@@ -50,11 +50,6 @@ public class PrincipalView extends javax.swing.JFrame {
         jPanelInicio = new javax.swing.JPanel();
         jLabelInicio = new javax.swing.JLabel();
         jTabbedPane = new javax.swing.JTabbedPane();
-        jPanelInicioVendas = new javax.swing.JPanel();
-        jLabelEscolherMesVendas = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableInicioVendas = new javax.swing.JTable();
         jPanelInicioEstoque = new javax.swing.JPanel();
         jLabelProdutosEstoqueB = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -190,78 +185,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jLabelInicio.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 48)); // NOI18N
         jLabelInicio.setText("Início");
-
-        jLabelEscolherMesVendas.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jLabelEscolherMesVendas.setText("Escolha o mês que deseja visualizar:");
-
-        jTableInicioVendas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "id", "produto_id", "funcionario_id", "cliente_id", "Qtd", "Preço unitário", "Preço final", "Data"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTableInicioVendas);
-        if (jTableInicioVendas.getColumnModel().getColumnCount() > 0) {
-            jTableInicioVendas.getColumnModel().getColumn(0).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(1).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(2).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(3).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(4).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(5).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(6).setResizable(false);
-            jTableInicioVendas.getColumnModel().getColumn(7).setResizable(false);
-        }
-
-        javax.swing.GroupLayout jPanelInicioVendasLayout = new javax.swing.GroupLayout(jPanelInicioVendas);
-        jPanelInicioVendas.setLayout(jPanelInicioVendasLayout);
-        jPanelInicioVendasLayout.setHorizontalGroup(
-            jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInicioVendasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 849, Short.MAX_VALUE)
-                    .addGroup(jPanelInicioVendasLayout.createSequentialGroup()
-                        .addComponent(jLabelEscolherMesVendas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanelInicioVendasLayout.setVerticalGroup(
-            jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelInicioVendasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelInicioVendasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelEscolherMesVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        Calendar calendar = Calendar.getInstance();
-        Date hoje = calendar.getTime();
-        SpinnerDateModel model = new SpinnerDateModel(hoje, null, null, Calendar.MONTH);
-        jSpinner1.setModel(model);
-
-        // Editor para mostrar apenas mês e ano
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(jSpinner1, "MM/yyyy");
-        jSpinner1.setEditor(editor);
-
-        jTabbedPane.addTab("Vendas", jPanelInicioVendas);
 
         jLabelProdutosEstoqueB.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabelProdutosEstoqueB.setText("Produtos com estoque baixo:");
@@ -1366,7 +1289,6 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JButton jButtonVender;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabelClientes;
-    private javax.swing.JLabel jLabelEscolherMesVendas;
     private javax.swing.JLabel jLabelEstoque;
     private javax.swing.JLabel jLabelFuncionarios;
     private javax.swing.JLabel jLabelInicio;
@@ -1385,11 +1307,9 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelInicioClientes;
     private javax.swing.JPanel jPanelInicioEstoque;
     private javax.swing.JPanel jPanelInicioFuncionarios;
-    private javax.swing.JPanel jPanelInicioVendas;
     private javax.swing.JPanel jPanelOpcoes;
     private javax.swing.JPanel jPanelTela;
     private javax.swing.JPanel jPanelVendas;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -1397,13 +1317,11 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPaneFuncionarios;
     private javax.swing.JScrollPane jScrollPaneVendas;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTabbedPane jTabbedPane;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableEstoque;
     private javax.swing.JTable jTableFuncionarios;
-    private javax.swing.JTable jTableInicioVendas;
     private javax.swing.JTable jTableProdutosEstoqueBaixo;
     private javax.swing.JTable jTableVendas;
     private javax.swing.JTextField jTextFieldNomeCliente;
