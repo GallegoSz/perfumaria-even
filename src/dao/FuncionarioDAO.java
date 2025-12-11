@@ -113,4 +113,39 @@ public class FuncionarioDAO {
         }
         return null;
     }
+    
+    public List<Funcionario> buscarFuncionariosMaisVendem() throws SQLException {
+        List<Funcionario> lista = new ArrayList<>();
+        String sql = "SELECT\n" +
+                    "f.*,\n" +
+                    "COUNT(v.id) AS total_vendas_funcionario,\n" +
+                    "(SELECT COUNT(id) FROM vendas) AS total_geral_vendas,\n" +
+                    "(CAST(COUNT(v.id) AS REAL) * 100.0 / (SELECT COUNT(id) FROM vendas)) AS porcentagem_vendas\n" +
+                    "FROM\n" +
+                    "funcionarios f\n" +
+                    "LEFT JOIN\n" +
+                    "vendas v ON f.id = v.funcionario_id\n" +
+                    "GROUP BY\n" +
+                    "f.id, f.nome, f.senha, f.email, f.salario, f.admin -- Inclua todas as colunas de 'f'\n" +
+                    "ORDER BY\n" +
+                    "porcentagem_vendas DESC;";
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Funcionario f = new Funcionario();
+                f.setId(rs.getInt("id"));
+                f.setNome(rs.getString("nome"));
+                f.setSenha(rs.getString("senha"));
+                f.setEmail(rs.getString("email"));
+                f.setSalario(rs.getDouble("salario"));
+                f.setAdmin(rs.getBoolean("admin"));
+
+                f.setPorcentagemVendas(rs.getDouble("porcentagem_vendas")); 
+
+                lista.add(f);
+            }
+        }
+        return lista;
+    }
 }

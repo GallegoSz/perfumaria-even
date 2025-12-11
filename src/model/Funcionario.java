@@ -6,6 +6,7 @@ public class Funcionario {
     private String senha;
     private String email;
     private Double salario;
+    private double porcentagemVendas;
 
     public Funcionario(String nome, String senha, String email, Double salario, boolean admin) {
         this.nome = nome;
@@ -65,6 +66,14 @@ public class Funcionario {
 
     public void setSalario(Double salario) {
         this.salario = salario;
+    }
+    
+    public double getPorcentagemVendas() {
+        return porcentagemVendas;
+    }
+
+    public void setPorcentagemVendas(double porcentagemVendas) {
+        this.porcentagemVendas = porcentagemVendas;
     }
     
     @Override

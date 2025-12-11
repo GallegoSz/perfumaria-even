@@ -75,4 +75,12 @@ public class FuncionarioService {
         }
         
     }
+    
+    public List<Funcionario> buscarFuncionariosMaisVendem() throws SQLException {
+        try {
+            return dao.buscarFuncionariosMaisVendem();
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao buscar funcionários por vendas: " + e.getMessage(), e);
+        }
+    }
 }

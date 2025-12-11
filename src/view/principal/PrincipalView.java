@@ -27,6 +27,7 @@ public class PrincipalView extends javax.swing.JFrame {
         try {
             clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
             funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+            funcionarioController.buscarFuncionariosMaisVendem(jTableFuncionariosComMaiorPorcen.getModel());
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
             produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
             vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
@@ -58,7 +59,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jPanelInicioFuncionarios = new javax.swing.JPanel();
         jLabelProdutosEstoqueB1 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableFuncionariosComMaiorPorcen = new javax.swing.JTable();
         jPanelInicioClientes = new javax.swing.JPanel();
         jLabelProdutosEstoqueB2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -254,18 +255,39 @@ public class PrincipalView extends javax.swing.JFrame {
         jLabelProdutosEstoqueB1.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabelProdutosEstoqueB1.setText("Funcionários com a maior porcentagem de vendas realizadas:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableFuncionariosComMaiorPorcen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Senha", "Email", "Salário", "Admin"
+                "Id", "Nome", "Senha", "Email", "Salário", "Admin", "% de Vendas"
             }
-        ));
-        jScrollPane5.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableFuncionariosComMaiorPorcen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableFuncionariosComMaiorPorcenMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTableFuncionariosComMaiorPorcen);
+        if (jTableFuncionariosComMaiorPorcen.getColumnModel().getColumnCount() > 0) {
+            jTableFuncionariosComMaiorPorcen.getColumnModel().getColumn(0).setResizable(false);
+            jTableFuncionariosComMaiorPorcen.getColumnModel().getColumn(1).setResizable(false);
+            jTableFuncionariosComMaiorPorcen.getColumnModel().getColumn(2).setResizable(false);
+            jTableFuncionariosComMaiorPorcen.getColumnModel().getColumn(3).setResizable(false);
+            jTableFuncionariosComMaiorPorcen.getColumnModel().getColumn(4).setResizable(false);
+            jTableFuncionariosComMaiorPorcen.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanelInicioFuncionariosLayout = new javax.swing.GroupLayout(jPanelInicioFuncionarios);
         jPanelInicioFuncionarios.setLayout(jPanelInicioFuncionariosLayout);
@@ -1310,10 +1332,10 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void jTableProdutosEstoqueBaixoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosEstoqueBaixoMouseClicked
         if (evt.getClickCount() == 2) {
-            linha = jTableEstoque.rowAtPoint(evt.getPoint());
+            linha = jTableProdutosEstoqueBaixo.rowAtPoint(evt.getPoint());
             
             if (linha != -1) {
-                Object valordoId = jTableEstoque.getValueAt(linha, 0);
+                Object valordoId = jTableProdutosEstoqueBaixo.getValueAt(linha, 0);
                 
                 int id = Integer.parseInt(valordoId.toString());
                 try {
@@ -1336,10 +1358,28 @@ public class PrincipalView extends javax.swing.JFrame {
     private void jButtonRefreshInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshInicioActionPerformed
         try {
             produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
+            funcionarioController.buscarFuncionariosMaisVendem(jTableFuncionariosComMaiorPorcen.getModel());
         } catch (Exception ex) {
             System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }//GEN-LAST:event_jButtonRefreshInicioActionPerformed
+
+    private void jTableFuncionariosComMaiorPorcenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosComMaiorPorcenMouseClicked
+        if (evt.getClickCount() == 2) {
+            linha = jTableFuncionariosComMaiorPorcen.rowAtPoint(evt.getPoint());
+            
+            if (linha != -1) {
+                Object valordoId = jTableFuncionariosComMaiorPorcen.getValueAt(linha, 0);
+                
+                int id = Integer.parseInt(valordoId.toString());
+                try {
+                    funcionarioController.abrirTelaEditarFuncionario(id);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableFuncionariosComMaiorPorcenMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarClientes;
@@ -1390,10 +1430,10 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPaneFuncionarios;
     private javax.swing.JScrollPane jScrollPaneVendas;
     private javax.swing.JTabbedPane jTabbedPane;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableEstoque;
     private javax.swing.JTable jTableFuncionarios;
+    private javax.swing.JTable jTableFuncionariosComMaiorPorcen;
     private javax.swing.JTable jTableProdutosEstoqueBaixo;
     private javax.swing.JTable jTableVendas;
     private javax.swing.JTextField jTextFieldNomeCliente;

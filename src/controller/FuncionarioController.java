@@ -155,7 +155,7 @@ public class FuncionarioController {
                     });
             }
             
-        }
+    }
     
 
     public void abrirTelaExcluirFuncionario(int id) throws Exception {
@@ -170,6 +170,35 @@ public class FuncionarioController {
             }
         } catch (Exception e) {
             throw new Exception("Erro ao abrir a tela excluir funcionário");
+        }
+    }
+    
+    public void buscarFuncionariosMaisVendem(TableModel model) throws SQLException {
+        List<Funcionario> lista = funcionarioService.buscarFuncionariosMaisVendem();
+
+        DefaultTableModel modelo = (DefaultTableModel) model;
+        modelo.setRowCount(0);
+
+        String adminText;
+
+        for (Funcionario f : lista) {
+            if (f.isAdmin() == true) {
+                adminText = "Administrador";
+            } else {
+                adminText = "Usuário comum";
+            }
+
+            String porcentagemFormatada = String.format("%.2f%%", f.getPorcentagemVendas());
+
+            modelo.addRow(new Object[]{ 
+                f.getId(), 
+                f.getNome(),
+                f.getSenha(),
+                f.getEmail(),
+                f.getSalario(),
+                adminText,
+                porcentagemFormatada 
+            });
         }
     }
 }
