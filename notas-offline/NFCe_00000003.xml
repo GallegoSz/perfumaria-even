@@ -18,28 +18,27 @@
   </emit>
   <det nItem="1">
     <prod>
-      <cProd>1</cProd>
-      <xProd>Cheiro Boms</xProd>
-      <qCom>1</qCom>
-      <vUnCom>500.0</vUnCom>
-      <vProd>500.0</vProd>
+      <cProd>7</cProd>
+      <xProd>Sauvage</xProd>
+      <qCom>12</qCom>
+      <vUnCom>835.0</vUnCom>
+      <vProd>10020.0</vProd>
       <CFOP>5102</CFOP>
       <uCom>UN</uCom>
     </prod>
   </det>
   <total>
     <ICMSTot>
-      <vProd>500.0</vProd>
-      <vNF>500.0</vNF>
+      <vProd>10020.0</vProd>
+      <vNF>10020.0</vNF>
     </ICMSTot>
   </total>
   <ide>
-    <dhEmi>2025-12-11T17:29:30.9172969</dhEmi>
+    <dhEmi>2025-12-11T21:06:47.7599809</dhEmi>
     <tpNF>1</tpNF>
     <idDest>1</idDest>
     <tpImp>4</tpImp>
-    <tpEmis>9</tpEmis> <!-- Contingência offline -->
-    <cDV>0</cDV>
+    <tpEmis>9</tpEmis>    <cDV>0</cDV>
   </ide>
 </infNFe>
 </NFe>

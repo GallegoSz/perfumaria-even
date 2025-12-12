@@ -249,7 +249,7 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelProdutosEstoqueB, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE))
         );
 
         jTabbedPane.addTab("Estoque", jPanelInicioEstoque);
@@ -310,7 +310,7 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelProdutosEstoqueB1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -369,7 +369,7 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabelProdutosEstoqueB2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -404,12 +404,11 @@ public class PrincipalView extends javax.swing.JFrame {
                 .addGroup(jPanelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelInicioLayout.createSequentialGroup()
                         .addGap(15, 15, 15)
-                        .addComponent(jLabelInicio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelInicioLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonRefreshInicio)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jLabelInicio))
+                    .addGroup(jPanelInicioLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jButtonRefreshInicio)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane)
                 .addContainerGap())
         );
@@ -1363,16 +1362,6 @@ public class PrincipalView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonAdicionarFuncionariosActionPerformed
 
-    private void jButtonRefreshInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshInicioActionPerformed
-        try {
-            produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
-            funcionarioController.buscarFuncionariosMaisVendem(jTableFuncionariosComMaiorPorcen.getModel());
-            clienteController.buscarMelhoresClientesPorProdutos(jTableMelhoresClientesProdutos.getModel());
-        } catch (Exception ex) {
-            System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-    }//GEN-LAST:event_jButtonRefreshInicioActionPerformed
-
     private void jTableFuncionariosComMaiorPorcenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosComMaiorPorcenMouseClicked
         if (evt.getClickCount() == 2) {
             linha = jTableFuncionariosComMaiorPorcen.rowAtPoint(evt.getPoint());
@@ -1430,6 +1419,16 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTableMelhoresClientesProdutosMouseClicked
+
+    private void jButtonRefreshInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshInicioActionPerformed
+        try {
+            produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
+            funcionarioController.buscarFuncionariosMaisVendem(jTableFuncionariosComMaiorPorcen.getModel());
+            clienteController.buscarMelhoresClientesPorProdutos(jTableMelhoresClientesProdutos.getModel());
+        } catch (Exception ex) {
+            System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_jButtonRefreshInicioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarClientes;
