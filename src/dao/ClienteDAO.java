@@ -114,4 +114,39 @@ public class ClienteDAO {
             ps.close();
         }
     }
+    
+    public List<Cliente> buscarTopClientesPorProdutos() throws SQLException {
+        List<Cliente> lista = new ArrayList<>();
+
+        String sql = "SELECT " +
+                     "c.*, " +
+                     "SUM(v.quantidade) AS total_produtos_comprados " +
+                     "FROM " +
+                     "clientes c " +
+                     "INNER JOIN " +
+                     "vendas v ON c.id = v.cliente_id " +
+                     "GROUP BY " +
+                     "c.id, c.nome, c.cpf, c.email, c.endereco " + 
+                     "ORDER BY " +
+                     "total_produtos_comprados DESC";
+
+        try (PreparedStatement ps = Conexao.getConexao().prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId(rs.getInt("id"));
+                c.setNome(rs.getString("nome"));
+                c.setCpf(rs.getString("cpf"));
+                c.setEmail(rs.getString("email"));
+                c.setEndereco(rs.getString("endereco"));
+
+                // Note que o nome do ResultSet deve ser o ALIAS usado na SQL: 'total_produtos_comprados'
+                c.setTotalProdutosComprados(rs.getInt("total_produtos_comprados")); 
+
+                lista.add(c);
+            }
+        }
+        return lista;
+    }
 }

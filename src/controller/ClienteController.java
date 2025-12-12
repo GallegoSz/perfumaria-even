@@ -82,7 +82,7 @@ public class ClienteController {
                 c.getEmail(), 
                 c.getEndereco()
                 });
-            }
+        }
     }
 
     public void abrirTelaCadastrarCliente() throws Exception {
@@ -115,6 +115,24 @@ public class ClienteController {
     
         clienteService.cadastrar(cliente);
         return true;
+    }
+    
+    public void buscarMelhoresClientesPorProdutos(TableModel model) throws SQLException {
+        List<Cliente> lista = clienteService.buscarMelhoresClientesPorProdutos();
+
+        DefaultTableModel modelo = (DefaultTableModel) model;
+        modelo.setRowCount(0);
+
+        for (Cliente c : lista) {
+            modelo.addRow(new Object[]{ 
+                c.getId(), 
+                c.getNome(),
+                c.getCpf(),
+                c.getEmail(),
+                c.getEndereco(),
+                c.getTotalProdutosComprados()
+            });
         }
     }
+}
 

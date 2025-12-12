@@ -51,19 +51,19 @@ public class ClienteService {
     }
 
     public void alterarDadosCliente(Cliente cliente) throws SQLException, IllegalArgumentException { 
-    if (!cpfDisponivel(cliente.getCpf(), cliente.getId())) {    
-        throw new IllegalArgumentException("Este CPF já está em uso.");
-    }
-    if (!emailDisponivel(cliente.getEmail(), cliente.getId())) {
-        throw new IllegalArgumentException("Este e-mail já está em uso.");
-    }
+        if (!cpfDisponivel(cliente.getCpf(), cliente.getId())) {    
+            throw new IllegalArgumentException("Este CPF já está em uso.");
+        }
+        if (!emailDisponivel(cliente.getEmail(), cliente.getId())) {
+            throw new IllegalArgumentException("Este e-mail já está em uso.");
+        }
 
-    try {
-        dao.alterarDadosCliente(cliente);
-    } catch (SQLException e) {
-        throw new SQLException("Erro ao atualizar cliente no banco: " + e.getMessage(), e);
+        try {
+            dao.alterarDadosCliente(cliente);
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao atualizar cliente no banco: " + e.getMessage(), e);
+        }
     }
-}
 
     public void apagarCliente(int id) throws SQLException {
         if (id <= 0) {
@@ -75,7 +75,7 @@ public class ClienteService {
         } catch (SQLException e) {
             throw new SQLException("Erro ao apagar cliente com ID " + id, e);
         }
-}
+    }
 
     public List<Cliente> buscarClientes(String nome) throws SQLException {      
         try {
@@ -84,5 +84,13 @@ public class ClienteService {
             throw new SQLException("Erro ao buscar clientes: " + e.getMessage(), e);
         }
         
+    }
+    
+    public List<Cliente> buscarMelhoresClientesPorProdutos() throws SQLException {
+        try {
+            return dao.buscarTopClientesPorProdutos();
+        } catch (SQLException e) {
+            throw new SQLException("Erro ao buscar top clientes por produtos: " + e.getMessage(), e);
+        }
     }
 }

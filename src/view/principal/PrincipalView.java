@@ -26,6 +26,7 @@ public class PrincipalView extends javax.swing.JFrame {
         initComponents();
         try {
             clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+            clienteController.buscarMelhoresClientesPorProdutos(jTableMelhoresClientesProdutos.getModel());
             funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
             funcionarioController.buscarFuncionariosMaisVendem(jTableFuncionariosComMaiorPorcen.getModel());
             produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
@@ -63,6 +64,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jPanelInicioClientes = new javax.swing.JPanel();
         jLabelProdutosEstoqueB2 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
+        jTableMelhoresClientesProdutos = new javax.swing.JTable();
         jButtonRefreshInicio = new javax.swing.JButton();
         jPanelFuncionarios = new javax.swing.JPanel();
         jLabelFuncionarios = new javax.swing.JLabel();
@@ -316,6 +318,37 @@ public class PrincipalView extends javax.swing.JFrame {
 
         jLabelProdutosEstoqueB2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         jLabelProdutosEstoqueB2.setText("Melhores clientes:");
+
+        jTableMelhoresClientesProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nome", "CPF", "Email", "Endereço", "Produtos Comprados"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableMelhoresClientesProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMelhoresClientesProdutosMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTableMelhoresClientesProdutos);
+        if (jTableMelhoresClientesProdutos.getColumnModel().getColumnCount() > 0) {
+            jTableMelhoresClientesProdutos.getColumnModel().getColumn(0).setResizable(false);
+            jTableMelhoresClientesProdutos.getColumnModel().getColumn(1).setResizable(false);
+            jTableMelhoresClientesProdutos.getColumnModel().getColumn(2).setResizable(false);
+            jTableMelhoresClientesProdutos.getColumnModel().getColumn(3).setResizable(false);
+            jTableMelhoresClientesProdutos.getColumnModel().getColumn(4).setResizable(false);
+            jTableMelhoresClientesProdutos.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanelInicioClientesLayout = new javax.swing.GroupLayout(jPanelInicioClientes);
         jPanelInicioClientes.setLayout(jPanelInicioClientesLayout);
@@ -947,217 +980,153 @@ public class PrincipalView extends javax.swing.JFrame {
         cl.show(jPanelTela, "clientes");
     }//GEN-LAST:event_jButtonClientesActionPerformed
 
-    private void jButtonAdicionarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarFuncionariosActionPerformed
+    private void jTableVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVendasMouseClicked
         try {
-            funcionarioController.abrirTelaCadastrarFuncionario();
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de funcionário: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de funcionário: " + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de funcionário: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButtonAdicionarFuncionariosActionPerformed
-
-    private void jButtonAdicionarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarClientesActionPerformed
-        try {
-            clienteController.abrirTelaCadastrarCliente();
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de cliente: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de cliente: " + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de cliente: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButtonAdicionarClientesActionPerformed
-
-    private void jButtonRemoverFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverFuncionariosActionPerformed
-        int linhaSelecionada = jTableFuncionarios.getSelectedRow();
-
-        if (linhaSelecionada == -1) {
-            JOptionPane.showMessageDialog(this, "É necessário escolher um funcionário para excluir.");
-            return;
-        }
-
-        Object valordoId = jTableFuncionarios.getValueAt(linhaSelecionada, 0);
-        int id = Integer.parseInt(valordoId.toString());
-
-        try {
-            funcionarioController.abrirTelaExcluirFuncionario(id);
-            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir funcionário: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir funcionário: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir funcionário: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jButtonRemoverFuncionariosActionPerformed
+    }//GEN-LAST:event_jTableVendasMouseClicked
 
-    private void jButtonRefreshFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshFActionPerformed
+    private void jTextFieldNomeDaVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyTyped
         try {
-            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jButtonRefreshFActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyTyped
 
-    private void jButtonRefreshCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshCActionPerformed
+    private void jTextFieldNomeDaVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyReleased
         try {
-            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jButtonRefreshCActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyReleased
 
-    private void jTableFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosMouseClicked
+    private void jTextFieldNomeDaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyPressed
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyPressed
+
+    private void jTextFieldNomeDaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaActionPerformed
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeDaVendaActionPerformed
+
+    private void jButtonRefreshVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshVActionPerformed
+        try {
+            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRefreshVActionPerformed
+
+    private void jButtonAdicionarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarVendaActionPerformed
+
+        try {
+            vendaController.abrirTelaCadastrarVenda();
+        } catch (Exception ex) {
+            System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
+    }//GEN-LAST:event_jButtonAdicionarVendaActionPerformed
+
+    private void jTableEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstoqueMouseClicked
         if (evt.getClickCount() == 2) {
-            linha = jTableFuncionarios.rowAtPoint(evt.getPoint());
-            
+            linha = jTableEstoque.rowAtPoint(evt.getPoint());
+
             if (linha != -1) {
-                Object valordoId = jTableFuncionarios.getValueAt(linha, 0);
-                
+                Object valordoId = jTableEstoque.getValueAt(linha, 0);
+
                 int id = Integer.parseInt(valordoId.toString());
                 try {
-                    funcionarioController.abrirTelaEditarFuncionario(id);
+                    produtoController.abrirTelaEditarProduto(id);
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
         }
-    }//GEN-LAST:event_jTableFuncionariosMouseClicked
+    }//GEN-LAST:event_jTableEstoqueMouseClicked
 
-    private void jTextFieldNomeFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyPressed
+    private void jTextFieldNomeProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyTyped
         try {
-            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyPressed
+    }//GEN-LAST:event_jTextFieldNomeProdutoKeyTyped
 
-    private void jTextFieldNomeFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyReleased
+    private void jTextFieldNomeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyReleased
         try {
-            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyReleased
+    }//GEN-LAST:event_jTextFieldNomeProdutoKeyReleased
 
-    private void jTextFieldNomeFuncionarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyTyped
+    private void jTextFieldNomeProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyPressed
         try {
-            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyTyped
+    }//GEN-LAST:event_jTextFieldNomeProdutoKeyPressed
 
-    private void jTextFieldNomeClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyPressed
+    private void jButtonRefreshPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshPActionPerformed
         try {
-            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
+            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeClienteKeyPressed
-
-    private void jTextFieldNomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyReleased
-        try {
-            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jTextFieldNomeClienteKeyReleased
-
-    private void jTextFieldNomeClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyTyped
-        try {
-            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jTextFieldNomeClienteKeyTyped
-
-    private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
-        if (evt.getClickCount() == 2) {
-            linha = jTableClientes.rowAtPoint(evt.getPoint());
-            
-            if (linha != -1) {
-                Object valordoId = jTableClientes.getValueAt(linha, 0);
-                
-                int id = Integer.parseInt(valordoId.toString());
-                try {
-                    clienteController.abrirTelaEditarCliente(id);
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage());
-                }
-            }
-        }
-    }//GEN-LAST:event_jTableClientesMouseClicked
-
-    private void jButtonRemoverClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverClientesActionPerformed
-        int linhaSelecionada = jTableClientes.getSelectedRow();
-
-        if (linhaSelecionada == -1) {
-            JOptionPane.showMessageDialog(this, "É necessário escolher um cliente para excluir.");
-            return;
-        }
-
-        Object valordoId = jTableClientes.getValueAt(linhaSelecionada, 0);
-        int id = Integer.parseInt(valordoId.toString());
-
-        try {
-            clienteController.abrirTelaExcluirCliente(id);
-            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir cliente: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir cliente: " + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir cliente: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButtonRemoverClientesActionPerformed
-
-    private void jButtonAdicionarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarProdutosActionPerformed
-        try {
-            produtoController.abrirTelaCadastrarProduto();
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de produto: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de produto: " + ex.getMessage());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de produto: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButtonAdicionarProdutosActionPerformed
+    }//GEN-LAST:event_jButtonRefreshPActionPerformed
 
     private void jButtonRemoverProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverProdutosActionPerformed
         int linhaSelecionada = jTableEstoque.getSelectedRow();
@@ -1182,183 +1151,223 @@ public class PrincipalView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRemoverProdutosActionPerformed
 
-    private void jButtonRefreshPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshPActionPerformed
+    private void jButtonAdicionarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarProdutosActionPerformed
         try {
-            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
+            produtoController.abrirTelaCadastrarProduto();
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de produto: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de produto: " + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de produto: " + e.getMessage());
         }
-    }//GEN-LAST:event_jButtonRefreshPActionPerformed
+    }//GEN-LAST:event_jButtonAdicionarProdutosActionPerformed
 
-    private void jTextFieldNomeProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyPressed
-        try {
-            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jTextFieldNomeProdutoKeyPressed
-
-    private void jTextFieldNomeProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyReleased
-        try {
-            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jTextFieldNomeProdutoKeyReleased
-
-    private void jTextFieldNomeProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeProdutoKeyTyped
-        try {
-            produtoController.buscarProdutos(jTextFieldNomeProduto.getText(), jTableEstoque.getModel());
-        } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de produtos: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de produtos: " + ex.getMessage());
-        }
-    }//GEN-LAST:event_jTextFieldNomeProdutoKeyTyped
-
-    private void jTableEstoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableEstoqueMouseClicked
+    private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
         if (evt.getClickCount() == 2) {
-            linha = jTableEstoque.rowAtPoint(evt.getPoint());
-            
+            linha = jTableClientes.rowAtPoint(evt.getPoint());
+
             if (linha != -1) {
-                Object valordoId = jTableEstoque.getValueAt(linha, 0);
-                
+                Object valordoId = jTableClientes.getValueAt(linha, 0);
+
                 int id = Integer.parseInt(valordoId.toString());
                 try {
-                    produtoController.abrirTelaEditarProduto(id);
-                    
+                    clienteController.abrirTelaEditarCliente(id);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
         }
-    }//GEN-LAST:event_jTableEstoqueMouseClicked
+    }//GEN-LAST:event_jTableClientesMouseClicked
 
-    private void jButtonAdicionarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarVendaActionPerformed
-
+    private void jTextFieldNomeClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyTyped
         try {
-            vendaController.abrirTelaCadastrarVenda();
-        } catch (Exception ex) {
-            System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-        
-    }//GEN-LAST:event_jButtonAdicionarVendaActionPerformed
-
-    private void jButtonRefreshVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshVActionPerformed
-        try {
-            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jButtonRefreshVActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeClienteKeyTyped
 
-    private void jTextFieldNomeDaVendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyPressed
+    private void jTextFieldNomeClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyReleased
         try {
-            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyPressed
+    }//GEN-LAST:event_jTextFieldNomeClienteKeyReleased
 
-    private void jTextFieldNomeDaVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyReleased
+    private void jTextFieldNomeClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeClienteKeyPressed
         try {
-            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyReleased
+    }//GEN-LAST:event_jTextFieldNomeClienteKeyPressed
 
-    private void jTextFieldNomeDaVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaKeyTyped
+    private void jButtonRefreshCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshCActionPerformed
         try {
-            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de clientes: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de clientes: " + ex.getMessage());
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de clientes: " + ex.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeDaVendaKeyTyped
+    }//GEN-LAST:event_jButtonRefreshCActionPerformed
 
-    private void jTableVendasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableVendasMouseClicked
+    private void jButtonRemoverClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverClientesActionPerformed
+        int linhaSelecionada = jTableClientes.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "É necessário escolher um cliente para excluir.");
+            return;
+        }
+
+        Object valordoId = jTableClientes.getValueAt(linhaSelecionada, 0);
+        int id = Integer.parseInt(valordoId.toString());
+
         try {
-            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+            clienteController.abrirTelaExcluirCliente(id);
+            clienteController.buscarClientes(jTextFieldNomeCliente.getText(), jTableClientes.getModel());
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir cliente: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir cliente: " + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir cliente: " + e.getMessage());
         }
-    }//GEN-LAST:event_jTableVendasMouseClicked
+    }//GEN-LAST:event_jButtonRemoverClientesActionPerformed
 
-    private void jTextFieldNomeDaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeDaVendaActionPerformed
+    private void jButtonAdicionarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarClientesActionPerformed
         try {
-            vendaController.buscarVendas(jTextFieldNomeDaVenda.getText(), jTableVendas.getModel());
+            clienteController.abrirTelaCadastrarCliente();
         } catch (IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de cliente: " + ex.getMessage());
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de vendas: " + ex.getMessage());
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de vendas: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de cliente: " + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de cliente: " + e.getMessage());
         }
-    }//GEN-LAST:event_jTextFieldNomeDaVendaActionPerformed
+    }//GEN-LAST:event_jButtonAdicionarClientesActionPerformed
 
-    private void jTableProdutosEstoqueBaixoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosEstoqueBaixoMouseClicked
+    private void jTableFuncionariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosMouseClicked
         if (evt.getClickCount() == 2) {
-            linha = jTableProdutosEstoqueBaixo.rowAtPoint(evt.getPoint());
-            
+            linha = jTableFuncionarios.rowAtPoint(evt.getPoint());
+
             if (linha != -1) {
-                Object valordoId = jTableProdutosEstoqueBaixo.getValueAt(linha, 0);
-                
+                Object valordoId = jTableFuncionarios.getValueAt(linha, 0);
+
                 int id = Integer.parseInt(valordoId.toString());
                 try {
-                    produtoController.abrirTelaEditarProduto(id);
-                    
-                    
+                    funcionarioController.abrirTelaEditarFuncionario(id);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, ex.getMessage());
                 }
             }
-            
-            try {
-                produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
-            } catch (Exception ex) {
-                System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
         }
-    }//GEN-LAST:event_jTableProdutosEstoqueBaixoMouseClicked
+    }//GEN-LAST:event_jTableFuncionariosMouseClicked
+
+    private void jTextFieldNomeFuncionarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyTyped
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyTyped
+
+    private void jTextFieldNomeFuncionarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyReleased
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyReleased
+
+    private void jTextFieldNomeFuncionarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNomeFuncionarioKeyPressed
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jTextFieldNomeFuncionarioKeyPressed
+
+    private void jButtonRefreshFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshFActionPerformed
+        try {
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao atualizar lista de funcionários: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao atualizar lista de funcionários: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRefreshFActionPerformed
+
+    private void jButtonRemoverFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverFuncionariosActionPerformed
+        int linhaSelecionada = jTableFuncionarios.getSelectedRow();
+
+        if (linhaSelecionada == -1) {
+            JOptionPane.showMessageDialog(this, "É necessário escolher um funcionário para excluir.");
+            return;
+        }
+
+        Object valordoId = jTableFuncionarios.getValueAt(linhaSelecionada, 0);
+        int id = Integer.parseInt(valordoId.toString());
+
+        try {
+            funcionarioController.abrirTelaExcluirFuncionario(id);
+            funcionarioController.buscarFuncionario(jTextFieldNomeFuncionario.getText(), jTableFuncionarios.getModel());
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao excluir funcionário: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao excluir funcionário: " + ex.getMessage());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao excluir funcionário: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jButtonRemoverFuncionariosActionPerformed
+
+    private void jButtonAdicionarFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarFuncionariosActionPerformed
+        try {
+            funcionarioController.abrirTelaCadastrarFuncionario();
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, "Erro de validação ao abrir tela de cadastro de funcionário: " + ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Erro no banco de dados ao abrir tela de cadastro de funcionário: " + ex.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado ao abrir tela de cadastro de funcionário: " + e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonAdicionarFuncionariosActionPerformed
 
     private void jButtonRefreshInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRefreshInicioActionPerformed
         try {
             produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
             funcionarioController.buscarFuncionariosMaisVendem(jTableFuncionariosComMaiorPorcen.getModel());
+            clienteController.buscarMelhoresClientesPorProdutos(jTableMelhoresClientesProdutos.getModel());
         } catch (Exception ex) {
             System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -1367,10 +1376,10 @@ public class PrincipalView extends javax.swing.JFrame {
     private void jTableFuncionariosComMaiorPorcenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableFuncionariosComMaiorPorcenMouseClicked
         if (evt.getClickCount() == 2) {
             linha = jTableFuncionariosComMaiorPorcen.rowAtPoint(evt.getPoint());
-            
+
             if (linha != -1) {
                 Object valordoId = jTableFuncionariosComMaiorPorcen.getValueAt(linha, 0);
-                
+
                 int id = Integer.parseInt(valordoId.toString());
                 try {
                     funcionarioController.abrirTelaEditarFuncionario(id);
@@ -1380,6 +1389,47 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTableFuncionariosComMaiorPorcenMouseClicked
+
+    private void jTableProdutosEstoqueBaixoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosEstoqueBaixoMouseClicked
+        if (evt.getClickCount() == 2) {
+            linha = jTableProdutosEstoqueBaixo.rowAtPoint(evt.getPoint());
+
+            if (linha != -1) {
+                Object valordoId = jTableProdutosEstoqueBaixo.getValueAt(linha, 0);
+
+                int id = Integer.parseInt(valordoId.toString());
+                try {
+                    produtoController.abrirTelaEditarProduto(id);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+
+            try {
+                produtoController.buscarProdutosComEstoqueBaixo(jTableProdutosEstoqueBaixo.getModel());
+            } catch (Exception ex) {
+                System.getLogger(PrincipalView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+        }
+    }//GEN-LAST:event_jTableProdutosEstoqueBaixoMouseClicked
+
+    private void jTableMelhoresClientesProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMelhoresClientesProdutosMouseClicked
+        if (evt.getClickCount() == 2) {
+            linha = jTableMelhoresClientesProdutos.rowAtPoint(evt.getPoint());
+
+            if (linha != -1) {
+                Object valordoId = jTableMelhoresClientesProdutos.getValueAt(linha, 0);
+
+                int id = Integer.parseInt(valordoId.toString());
+                try {
+                    funcionarioController.abrirTelaEditarFuncionario(id);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_jTableMelhoresClientesProdutosMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarClientes;
@@ -1434,6 +1484,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JTable jTableEstoque;
     private javax.swing.JTable jTableFuncionarios;
     private javax.swing.JTable jTableFuncionariosComMaiorPorcen;
+    private javax.swing.JTable jTableMelhoresClientesProdutos;
     private javax.swing.JTable jTableProdutosEstoqueBaixo;
     private javax.swing.JTable jTableVendas;
     private javax.swing.JTextField jTextFieldNomeCliente;

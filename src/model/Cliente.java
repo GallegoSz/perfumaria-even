@@ -6,6 +6,7 @@ public class Cliente {
     private String cpf;
     private String email;
     private String endereco;
+    private int totalProdutosComprados;
 
     public Cliente() {
     }
@@ -55,6 +56,14 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public int getTotalProdutosComprados() {
+        return totalProdutosComprados;
+    }
+
+    public void setTotalProdutosComprados(int totalProdutosComprados) {
+        this.totalProdutosComprados = totalProdutosComprados;
     }
     
     @Override
