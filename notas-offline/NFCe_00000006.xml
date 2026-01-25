@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe>
+<infNFe versao="4.00" Id="">
+  <emit>
+    <CNPJ>12345678000199</CNPJ>
+    <xNome>Perfumaria Even</xNome>
+    <enderEmit>
+      <xLgr>Rua Teste</xLgr>
+      <nro>123</nro>
+      <xBairro>Centro</xBairro>
+      <cMun>5103403</cMun>
+      <xMun>Cuiaba</xMun>
+      <UF>MT</UF>
+      <CEP>78000000</CEP>
+    </enderEmit>
+    <IE>123456789</IE>
+    <CRT>1</CRT>
+  </emit>
+  <det nItem="1">
+    <prod>
+      <cProd>8</cProd>
+      <xProd>Kaiak Oceano</xProd>
+      <qCom>10</qCom>
+      <vUnCom>120.0</vUnCom>
+      <vProd>1200.0</vProd>
+      <CFOP>5102</CFOP>
+      <uCom>UN</uCom>
+    </prod>
+  </det>
+  <total>
+    <ICMSTot>
+      <vProd>1200.0</vProd>
+      <vNF>1200.0</vNF>
+    </ICMSTot>
+  </total>
+  <ide>
+    <dhEmi>2025-12-12T10:25:50.6116851</dhEmi>
+    <tpNF>1</tpNF>
+    <idDest>1</idDest>
+    <tpImp>4</tpImp>
+    <tpEmis>9</tpEmis>    
+    <cDV>0</cDV>
+  </ide>
+</infNFe>
+</NFe>
