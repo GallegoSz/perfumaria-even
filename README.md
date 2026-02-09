@@ -50,51 +50,50 @@ Apresentação detalhada do funcionamento do projeto, destacando suas principais
 ## ✨ Funcionalidades
 
 <div align="center">
-
   <table>
-  <tr>
-  <td width="50%">
-  
-  ### 👥 Gestão de Pessoas
-  - ✅ CRUD completo de **Clientes**
-  - ✅ CRUD completo de **Funcionários**
-  - ✅ Autenticação de usuários
-  - ✅ Controle de acesso ao sistema
-  
-  </td>
-  <td width="50%">
-  
-  ### 📦 Gestão de Produtos
-  - ✅ CRUD completo de **Produtos**
-  - ✅ Validação de dados
-  - ✅ Organização centralizada
-  - ✅ Persistência em banco de dados
-  
-  </td>
-  </tr>
-  <tr>
-  <td width="50%">
-  
-  ### 💰 Gestão de Vendas
-  - ✅ Registro com data e hora
-  - ✅ Associação a clientes
-  - ✅ Associação a funcionários
-  - ✅ Geração de arquivos **XML** para notas fiscais
-  
-  </td>
-  <td width="50%">
-  
-  ### 🎨 Interface e Experiência
-  - ✅ Interface gráfica em **Swing**
-  - ✅ Mensagens de feedback
-  - ✅ Validação de entrada
-  - ✅ Design desktop intuitivo
-  
-  </td>
-  </tr>
-  </table>
-  
+<tr>
+<td width="50%">
+
+### 👥 Gestão de Pessoas
+- ✅ CRUD completo de **Clientes**
+- ✅ CRUD completo de **Funcionários**
+- ✅ Autenticação de usuários
+- ✅ Controle de acesso ao sistema
+
+</td>
+<td width="50%">
+
+### 📦 Gestão de Produtos
+- ✅ CRUD completo de **Produtos**
+- ✅ Validação de dados
+- ✅ Organização centralizada
+- ✅ Persistência em banco de dados
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### 💰 Gestão de Vendas
+- ✅ Registro com data e hora
+- ✅ Associação a clientes
+- ✅ Associação a funcionários
+- ✅ Geração de arquivos **XML**
+
+</td>
+<td width="50%">
+
+### 🎨 Interface e Experiência
+- ✅ Interface gráfica em **Swing**
+- ✅ Mensagens de feedback
+- ✅ Validação de entrada
+- ✅ Design desktop intuitivo
+
+</td>
+</tr>
+</table>
 </div>
+
 
 ---
 
@@ -148,6 +147,105 @@ graph TB
 - ✅ **Nomenclatura consistente**
 - ✅ **Tratamento de exceções**
 - ✅ **Código legível e manutenível**
+
+---
+
+## 📁 Estrutura do Projeto
+
+O projeto segue uma organização modular e em camadas, facilitando a manutenção e evolução do código.
+
+```
+perfumaria-even/
+│
+├── 📂 src/
+│   ├── 📂 app/                    # Executável do Programa
+│   │   ├── Main.java
+│   │
+│   ├── 📂 database/                 # DUMPS do banco     
+│   │   ├── db_perfumaria_even_clientes.sql
+│   │   ├── db_perfumaria_even_funcionarios.sql
+│   │   ├── db_perfumaria_even_produtos.sql
+│   │   ├── db_perfumaria_even_vendas.sql
+
+
+│   ├── 📂 model/                    # Entidades do domínio
+│   │   ├── Cliente.java
+│   │   ├── Funcionario.java
+│   │   ├── Produto.java
+│   │   ├── Venda.java
+│   │
+│   ├── 📂 dao/                      # Acesso a dados (Data Access Object)
+│   │   ├── Conexao.java             # Gerenciamento de conexão com o banco
+│   │   ├── ClienteDAO.java
+│   │   ├── FuncionarioDAO.java
+│   │   ├── ProdutoDAO.java
+│   │   ├── VendaDAO.java
+│   │   └── LoginDAO.java
+│   │
+│   ├── 📂 service/                  # Regras de negócio e validações
+│   │   ├── ClienteService.java
+│   │   ├── FuncionarioService.java
+│   │   ├── LoginService.java
+│   │   ├── ProdutoService.java
+│   │   ├── VendaService.java
+│   │   └── GeradorDeXMLService.java
+│   │
+│   ├── 📂 controller/               # Controladores da aplicação
+│   │   ├── ClienteController.java
+│   │   ├── FuncionarioController.java
+│   │   ├── ProdutoController.java
+│   │   ├── VendaController.java
+│   │   └── LoginController.java
+│   │
+│   ├── 📂 view/                     # Interface gráfica (Swing)
+│   │   ├── 📂 cliente/
+│   │   │    ├── AdicionarClientesView.java
+│   │   │    ├── AlterarDadosCView.java
+│   │   │    ├── ExcluirClientesView.java
+│   │   │
+│   │   ├── 📂 funcionario/
+│   │   │    ├── AdicionarFuncionariosView.java
+│   │   │    ├── AlterarDadosFViewView.java
+│   │   │    ├── ExcluirFuncionariosView.java
+│   │   │
+│   │   ├── 📂 imgs/...              # Ícones de Imagens do projeto
+│   │   │
+│   │   ├── 📂 login/
+│   │   │    ├── LoginView.java
+│   │   │
+│   │   ├── 📂 principal/
+│   │   │    ├── PrincipalView.java
+│   │   │
+│   │   ├── 📂 produto/
+│   │   │    ├── AdicionarProdutoView.java
+│   │   │    ├── AlterarDadosProdutoView.java
+│   │   │    ├── ExcluirProdutosView.java
+│   │   │
+│   │   ├── 📂 venda/
+│   │   │    ├── VendaView.java
+
+│
+├── 📂 libraries/                  # Bibliotecas externas (JARs)
+    └── mysql-connector-j-9.3.0.jar  # Driver JDBC do MySQL
+
+```
+
+### 📦 Descrição dos Pacotes
+
+| Pacote | Descrição |
+|--------|-----------|
+| **model** | Contém as classes de entidade que representam os objetos do domínio (Cliente, Produto, etc.) |
+| **dao** | Responsável pela comunicação direta com o banco de dados (queries SQL) |
+| **service** | Implementa a lógica de negócio, validações e processamento de dados |
+| **controller** | Faz a mediação entre a interface (view) e as regras de negócio (service) |
+| **view** | Interfaces gráficas desenvolvidas com Java Swing |
+
+### 🔑 Arquivos Importantes
+
+- **Main.java** → Ponto de entrada da aplicação
+- **Conexao.java** → Gerencia a conexão com o banco MySQL
+- **database/** → Scripts SQL para criação e população do banco
+- **libraries/** → Dependências externas (MySQL Connector)
 
 ---
 
