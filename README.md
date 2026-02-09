@@ -78,7 +78,7 @@ Apresentação detalhada do funcionamento do projeto, destacando suas principais
 - ✅ Registro com data e hora
 - ✅ Associação a clientes
 - ✅ Associação a funcionários
-- ✅ Geração de arquivos **XML**
+- ✅ Geração de arquivos **XML** para notas fiscais
 
 </td>
 <td width="50%">
