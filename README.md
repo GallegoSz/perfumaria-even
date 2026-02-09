@@ -166,8 +166,7 @@ perfumaria-even/
 │   │   ├── db_perfumaria_even_funcionarios.sql
 │   │   ├── db_perfumaria_even_produtos.sql
 │   │   ├── db_perfumaria_even_vendas.sql
-
-
+│   │
 │   ├── 📂 model/                    # Entidades do domínio
 │   │   ├── Cliente.java
 │   │   ├── Funcionario.java
@@ -223,7 +222,6 @@ perfumaria-even/
 │   │   │
 │   │   ├── 📂 venda/
 │   │   │    ├── VendaView.java
-
 │
 ├── 📂 libraries/                  # Bibliotecas externas (JARs)
     └── mysql-connector-j-9.3.0.jar  # Driver JDBC do MySQL
